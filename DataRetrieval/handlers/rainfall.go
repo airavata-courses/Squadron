@@ -1,9 +1,11 @@
 package handlers
 
 import (
+	"DataRetrieval/connections"
 	"DataRetrieval/router"
 	"encoding/json"
 	"fmt"
+	"github.com/Shopify/sarama"
 	"net/http"
 )
 
@@ -69,8 +71,13 @@ func RetrieveAndSendData(userRequest rainFallRequest) {
 		packet.Status = "ok"
 		packet.RainFallData = data
 	}
+
 	packetJson, _ := json.Marshal(packet)
-	fmt.Println(string(packetJson))
+	connections.KafkaAsync.Input() <- &sarama.ProducerMessage{
+		Topic:     "rainResults",
+		Key:       nil,
+		Value:     sarama.StringEncoder(packetJson),
+	}
 }
 
 func getRainData(pincode int) (resp [12]rainFallData, err error) {
