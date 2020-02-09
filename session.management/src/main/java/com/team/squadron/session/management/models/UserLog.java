@@ -13,12 +13,17 @@ public class UserLog {
 
     int pincode;
 
-    List<String> months;
+    List<Integer> months;
 
     float houseArea;
 
     float modelResult;
 
+    TransactionStatus status;
+
+    public TransactionStatus getStatus() { return status; }
+
+    public void setStatus(TransactionStatus status) { this.status = status; }
     public String getUserId() {
         return userId;
     }
@@ -43,11 +48,11 @@ public class UserLog {
         this.pincode = pincode;
     }
 
-    public List<String> getMonths() {
+    public List<Integer> getMonths() {
         return months;
     }
 
-    public void setMonths(List<String> months) {
+    public void setMonths(List<Integer> months) {
         this.months = months;
     }
 
