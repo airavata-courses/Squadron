@@ -1,4 +1,4 @@
-#User-management
+# User-management
 
 ###Install instructions
 Create a python virtual environment using:
@@ -7,7 +7,20 @@ Create a python virtual environment using:
 3. Execute `python3 manage.py runserver`
 4. [Need to be updated]
 
-###API reference
+### Running via docker container
+1. Clone repo
+2. Go to directory user_management
+3. There are two files `docker-compose.yml` and `Dockerfile`
+4. Build docker image `docker-compose up -d --build`
+5. Run docker file `docker-compose up`
+6. Test the application by going to http://localhost:8000
+
+
+### Troubleshooting
+1. Verify if the application is running using `docker ps`
+
+
+### API reference
 - Register user API
 `localhost:8000/api/register`
 Data block:
