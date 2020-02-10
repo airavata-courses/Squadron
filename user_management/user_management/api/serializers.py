@@ -13,12 +13,10 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True, 'allow_blank': False}}
 
     def create(self, validated_data):
-        print(validated_data)
         password = validated_data.pop('password')
         user = User(**validated_data)
         user.set_password(password)
-        user.save(owner=self.request.user)
-        print(user)
+        user.save()
         return user
 
     # Users are not allowed to update their passwords and a separate screen is provided for that

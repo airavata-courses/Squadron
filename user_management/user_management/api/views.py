@@ -17,7 +17,6 @@ class RegisterUserView(GenericViewSet, mixins.CreateModelMixin):
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-
         # Validate that the password is correct
         try:
             validate_password(request.data['password'])
@@ -25,7 +24,6 @@ class RegisterUserView(GenericViewSet, mixins.CreateModelMixin):
             resp = JsonResponse({'success': False, 'error': str(e)})
             resp.status_code = 400
             return resp
-
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
