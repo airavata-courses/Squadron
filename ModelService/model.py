@@ -4,11 +4,12 @@ import os
 
 
 def process_data():
-    consumer = KafkaConsumer(os.getenv("DATA_RETRIEVAL_TOPIC", 'rainResult'), bootstrap_servers=os.getenv('KAFKA', "localhost:9092"))
+    consumer = KafkaConsumer(os.getenv("DATA_RETRIEVAL_TOPIC", 'rainResults'), bootstrap_servers=os.getenv('KAFKA', "localhost:9092"))
     producer = KafkaProducer(bootstrap_servers=os.getenv('KAFKA', "localhost:9092"))
     print("Model execution service started consuming!!")
     while True:
-        for d in consumer:
+        for msg in consumer:
+            d = bytes.decode(msg.value())
             result = compute(json.loads(d))
             print("Model execution service started producing!!")
             producer.send(os.getenv("MODEL_RESULT_TOPIC", "modelExecutionResult"), result)
