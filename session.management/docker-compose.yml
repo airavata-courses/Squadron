@@ -24,7 +24,7 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper1:2181
-      KAFKA_CREATE_TOPICS: "rainResults:1:0"
+      KAFKA_CREATE_TOPICS: "rainResults:1:0, modelExecutionResult:1:0"
       KAFKA_ADVERTISED_HOST_NAME: "localhost"
       KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://0.0.0.0:9092"
 
