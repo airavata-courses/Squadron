@@ -6,9 +6,11 @@ import os
 def process_data():
     consumer = KafkaConsumer(os.getenv("DATA_RETRIEVAL_TOPIC", 'rainResult'), bootstrap_servers=os.getenv('KAFKA', "localhost:9092"))
     producer = KafkaProducer(bootstrap_servers=os.getenv('KAFKA', "localhost:9092"))
+    print("Model execution service started consuming!!")
     while True:
         for d in consumer:
             result = compute(json.loads(d))
+            print("Model execution service started producing!!")
             producer.send(os.getenv("MODEL_RESULT_TOPIC", "modelExecutionResult"), result)
             producer.flush()
 
@@ -19,6 +21,7 @@ def compute(d):
     area = d["HouseArea"]
     water_save = water(area, rain_total)
     d["modelResult"] = total_cost(water_save)
+    d["status"] = "COMPLETED"
     print(d)
     return bytes(d)
 
