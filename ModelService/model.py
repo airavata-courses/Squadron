@@ -9,7 +9,7 @@ def process_data():
     while True:
         for d in consumer:
             result = compute(json.loads(d))
-            producer.send(os.getenv("MODEL_RESULT_TOPIC", "modelResult"), result)
+            producer.send(os.getenv("MODEL_RESULT_TOPIC", "modelExecutionResult"), result)
             producer.flush()
 
 
