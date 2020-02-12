@@ -26,7 +26,12 @@ SECRET_KEY = 'd-oo(76+znq8rh09!vw_myfi^!)b19x4tl6vh4$4l)!o%n$gjq'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+CORS_ORIGIN_ALLOW_ALL = True
 
+# Application parameters
+USER_SERVICE_URL = "http://127.0.0.1:8000/"
+SESSION_MANAGEMENT_SERVICE_URL = "http://127.0.0.1:9014/"
+DATA_RETRIEVAL_SERVICE_URL = "http://127.0.0.1:9013/"
 
 # Application definition
 
@@ -37,10 +42,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
+    'rest_framework',
+    'corsheaders',
+
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
