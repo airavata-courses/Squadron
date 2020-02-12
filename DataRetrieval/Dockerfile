@@ -18,4 +18,4 @@ WORKDIR /app
 RUN go build -o main .
 # Our start command which kicks off
 # our newly created binary executable
-CMD ["/app/main"]
+CMD ["sh", "-c", "while ! $(nc -z -w 1 kafka1 9092); do sleep 0.1; done && /app/main"]

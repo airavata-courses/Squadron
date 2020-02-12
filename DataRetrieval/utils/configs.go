@@ -1,5 +1,10 @@
 package utils
 
+import (
+	"os"
+	"strings"
+)
+
 var Configs = getConfig()
 
 type config struct {
@@ -10,12 +15,8 @@ type config struct {
 
 func getConfig() config {
 	return config{
-		//KafkaBrokers: strings.Split(os.Getenv("KafkaBrokers"), ","),
-		//ServiceHost: os.Getenv("host"),
-		//ServicePort: os.Getenv("port"),
-
-		KafkaBrokers: []string{"kafka1:9092"},
-		ServiceHost: "0.0.0.0",
-		ServicePort: "9093",
+		KafkaBrokers: strings.Split(os.Getenv("KAFKA"), ","),
+		ServiceHost: os.Getenv("HOST"),
+		ServicePort: os.Getenv("PORT"),
 	}
 }
