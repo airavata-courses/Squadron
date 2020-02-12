@@ -18,7 +18,7 @@ def process_data():
         for msg in consumer:
             sys.stdout.flush()
             sys.stderr.flush()
-            d = bytes.decode(msg.value())
+            d = bytes.decode(msg.value)
             result = compute(json.loads(d))
             print("Model execution service started producing!!")
             producer.send("modelExecutionResult", result)
@@ -32,7 +32,7 @@ def compute(d):
     water_save = water(area, rain_total)
     d["modelResult"] = water_save
     print(d)
-    return bytes(d)
+    return json.dumps(d).encode()
 
 
 # Takes sum of rain fall from all the months
