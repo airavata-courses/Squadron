@@ -4,13 +4,13 @@ Team members: Aarushi Bisht Shivam Rastogi Akhil Nagulavancha
 
 ### STEPS TO START THE DATA RETRIEVAL SERVICE
 
-* Set the following enviroment variables: KafkaBrokers = localhost: 9092, host: localhost, port: 8081
+* docker build -t data_retrieval .
 
-* Open main.go and run the main function
+* docker-compose up -d
 
 ### DataRetrieval sample API
 
-curl -v -X POST http://localhost:8081/api/v1/request/rain/{requestId} --data '{"HouseArea": 2, "PinCode": 4, "Months": [10]}'
+curl -v -X POST http://localhost:9093/api/v1/request/rain/{requestId} --data '{"HouseArea": 2, "PinCode": 4, "Months": [10]}'
 
 DataRetrieval microservice will populate kafka topic "rainResults".
 
