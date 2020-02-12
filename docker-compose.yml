@@ -24,6 +24,26 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper1:2181
-      KAFKA_CREATE_TOPICS: "rainResults:1:0"
-      KAFKA_ADVERTISED_HOST_NAME: "localhost"
-      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://0.0.0.0:9092"
+      KAFKA_CREATE_TOPICS: "rainResults:0:1,modelExecutionResult:0:1"
+      KAFKA_ADVERTISED_HOST_NAME: kafka1
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka1:9092"
+
+  dataRetrieval:
+    image: data_retrieval
+    ports:
+      - 9093:9093
+    depends_on:
+      - kafka1
+    environment:
+      KAFKA: kafka1:9092
+      HOST: "0.0.0.0"
+      PORT: "9093"
+
+  modelExecution:
+    image: model_service
+    ports:
+      - 9094:9094
+    depends_on:
+      - kafka1
+    environment:
+      KAFKA: kafka1:9092
