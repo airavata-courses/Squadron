@@ -26,6 +26,6 @@ func testKafkaConsumer(){
 func main() {
 	r := &router.Router{}
 	r.HandleFunc("api/v1/request/rain/{requestId}", handlers.RetrieveRainData).Methods(http.MethodPost)
-	go testKafkaConsumer()
+	//go testKafkaConsumer()
 	http.ListenAndServe(utils.Configs.ServiceHost+":"+utils.Configs.ServicePort, r)
 }

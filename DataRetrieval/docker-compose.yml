@@ -27,3 +27,10 @@ services:
       KAFKA_CREATE_TOPICS: "rainResults:1:0"
       KAFKA_ADVERTISED_HOST_NAME: "localhost"
       KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://0.0.0.0:9092"
+
+  dataRetrieval:
+    image: data_retrieval_service
+    ports:
+      - 9093:9093
+    depends_on:
+      - kafka1
