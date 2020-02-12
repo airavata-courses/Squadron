@@ -4,8 +4,8 @@ import os
 
 
 def process_data():
-    consumer = KafkaConsumer(os.getenv("DATA_RETRIEVAL_TOPIC", 'rainResults'), bootstrap_servers=os.getenv('KAFKA', "localhost:9092"))
-    producer = KafkaProducer(bootstrap_servers=os.getenv('KAFKA', "localhost:9092"))
+    consumer = KafkaConsumer(os.getenv("DATA_RETRIEVAL_TOPIC", 'rainResults'), bootstrap_servers=os.getenv('KAFKA'))
+    producer = KafkaProducer(bootstrap_servers=os.getenv('KAFKA'))
     print("Model execution service started consuming!!")
     while True:
         for msg in consumer:
