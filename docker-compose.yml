@@ -47,3 +47,12 @@ services:
       - kafka1
     environment:
       KAFKA: kafka1:9092
+
+  postProcessing:
+    image: post_processing
+    ports:
+      - 9095:9095
+    depends_on:
+      - kafka1
+    environment:
+      KAFKA: kafka1:9092
