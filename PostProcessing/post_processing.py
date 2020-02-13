@@ -12,8 +12,13 @@ def process_data():
     while True:
         for msg in consumer:
             d = bytes.decode(msg.value)
-            result = compute(json.loads(d))
+            d = json.loads(d)
             print("Post processing service started producing!!")
+            if d['Status'] == "fail":
+                print("Passing failed process")
+                producer.send("postProcessingResult", json.dumps(d).encode())
+                continue
+            result = compute(d)
             producer.send("postProcessingResult", result)
             producer.flush()
             sys.stdout.flush()
@@ -25,6 +30,8 @@ def compute(d):
     d["post_processed"] = total_cost(d["modelResult"])
     d["status"] = "COMPLETED"
     print(d)
+    sys.stdout.flush()
+    sys.stderr.flush()
     return json.dumps(d).encode()
 
 

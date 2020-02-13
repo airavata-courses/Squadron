@@ -16,10 +16,19 @@ def process_data():
     sys.stderr.flush()
     while True:
         for msg in consumer:
-            sys.stdout.flush()
-            sys.stderr.flush()
             d = bytes.decode(msg.value)
-            result = compute(json.loads(d))
+            d = json.loads(d)
+            if d['Status'] == 'fail':
+                print("Failed to process the request because data retrieaval failed")
+                d['status'] = "FAILED"
+                print("Model execution service started producing!!")
+                producer.send("modelExecutionResult", json.dumps(d).encode())
+                sys.stdout.flush()
+                sys.stderr.flush()
+                producer.flush()
+                continue
+        
+            result = compute(d)
             print("Model execution service started producing!!")
             producer.send("modelExecutionResult", result)
             producer.flush()
@@ -27,6 +36,7 @@ def process_data():
 
 def compute(d):
     # Assuming 4 members per family consuming 50 gallons per month
+    print("Received from kafka", d)
     rain_total = sum_rain(d)
     area = d["HouseArea"]
     water_save = water(area, rain_total)

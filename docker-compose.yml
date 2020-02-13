@@ -24,11 +24,11 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper1:2181
-      KAFKA_CREATE_TOPICS: "rainResults:0:1,modelExecutionResult:0:1"
+      KAFKA_CREATE_TOPICS: "rainResults:0:1,modelExecutionResult:0:1,postProcessingResult:0:1"
       KAFKA_ADVERTISED_HOST_NAME: kafka1
       KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka1:9092"
 
-  dataRetrieval:
+  mode:
     image: data_retrieval
     ports:
       - 9093:9093
@@ -56,3 +56,19 @@ services:
       - kafka1
     environment:
       KAFKA: kafka1:9092
+  
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: UserLog
+
+  session:
+    image: session
+    ports:
+      - 9096:9096
+    depends_on:
+      - kafka1
+      - mongo

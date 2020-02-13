@@ -16,12 +16,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 @Component
 public class SessionConsumers{
 
     Config config;
     UserLogRepository repository;
+
+    Logger logger = Logger.getLogger(SessionConsumers.class.getName());
 
     @Autowired
     public SessionConsumers(Config config, UserLogRepository repository){
@@ -41,16 +44,20 @@ public class SessionConsumers{
         consumer.subscribe(Arrays.asList(config.getKafkaListenerTopics()));
 
         List<UserLog> buffer = new ArrayList<>();
-        int minBatchSize = 2;
+        int minBatchSize = 1;
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+
             for (ConsumerRecord<String, String> record : records) {
+                logger.info("Session service started consuming");
                 UserLog userlog = null;
                 try {
                     userlog = new ObjectMapper().readValue(record.value(), UserLog.class);
+                    logger.info(userlog.toString());
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
+
                 buffer.add(userlog);
             }
             if (buffer.size() >= minBatchSize) {
