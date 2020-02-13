@@ -31,14 +31,15 @@ def user_login(username, password):
 
 
 def create_experiment(experiment):
-    url = settings.SESSION_MANAGEMENT_SERVICE_URL + ''
+    trigger_experiment(experiment)
+    url = settings.SESSION_MANAGEMENT_SERVICE_URL + 'api/v1/session/'
 
-    '''params = {'requestId': request_id,
-              'userId': username,
-              'pincode': pincode,
-              'houseArea': house_area,
+    params = {'request_id': experiment.request_id,
+              'user_id': experiment.username,
+              'pincode': experiment.pincode,
+              'house_area': experiment.house_area,
               'status': 'PENDING',
-              'months': months}'''
+              'months': experiment.months}
     serializer = ExperimentSerializer(experiment)
     # content = JSONRenderer().render(serializer.data)
     print(serializer.data)
@@ -60,20 +61,14 @@ def create_experiment(experiment):
     '''
 
 
-def update_experiment(experiment):
-    serializer = ExperimentSerializer(experiment)
-    # content = JSONRenderer().render(serializer.data)
-    print(serializer.data)
-    print(json.dumps(serializer.data))
-
-
-def trigger_experiment(request_id, house_area, pincode, months=[]):
-    url = settings.DATA_RETRIEVAL_SERVICE_URL + ''
-    params = {'requestId': request_id,
-              'pincode': pincode,
-              'houseArea': house_area,
-              'status': 'PENDING',
-              'months': months}
+def trigger_experiment(experiment):
+    url = settings.DATA_RETRIEVAL_SERVICE_URL + 'api/v1/request/rain/' + experiment.request_id
+    params = {
+        'requestId': experiment.request_id,
+        'PinCode': experiment.pincode,
+        'HouseArea': experiment.house_area,
+        'Months': experiment.months
+    }
 
     r = requests.post(url,
                       json=params,
@@ -81,9 +76,19 @@ def trigger_experiment(request_id, house_area, pincode, months=[]):
                       )
 
     if r.status_code == 200:
+        print("Sent successfully")
         return {}
     else:
         return {}
+
+
+def update_experiment(experiment):
+    serializer = ExperimentSerializer(experiment)
+    # content = JSONRenderer().render(serializer.data)
+    print(serializer.data)
+    print(json.dumps(serializer.data))
+
+
 
 
 def get_all_experiments(username=None):
