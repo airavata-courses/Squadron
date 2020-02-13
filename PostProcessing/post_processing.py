@@ -27,7 +27,7 @@ def process_data():
 
 def compute(d):
     # Assuming 4 members per family consuming 50 gallons per month
-    d["post_processed"] = total_cost(d["modelResult"])
+    d["post_processed_result"] = total_cost(d["model_result"])
     d["status"] = "COMPLETED"
     print(d)
     sys.stdout.flush()

@@ -10,10 +10,10 @@ import (
 )
 
 type rainFallRequest struct {
-	HouseArea float64
-	PinCode   int
-	Months    []int
-	RequestId string
+	HouseArea float64 `json:"house_area"`
+	PinCode   int `json:"pincode"`
+	Months    []int`json:"months"`
+	RequestId string `json:"request_id"`
 }
 
 type resultPacket struct {
@@ -47,7 +47,7 @@ func RetrieveRainData(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 	}
-	userRequest.RequestId = params["requestId"]
+	userRequest.RequestId = params["request_id"]
 	go RetrieveAndSendData(userRequest)
 	w.WriteHeader(http.StatusOK)
 }
@@ -70,6 +70,7 @@ func RetrieveAndSendData(userRequest rainFallRequest) {
 		}
 		packet.Status = "ok"
 		packet.RainFallData = data
+		fmt.Println(packet)
 	}
 
 	packetJson, _ := json.Marshal(packet)

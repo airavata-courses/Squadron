@@ -14,8 +14,8 @@ public class SessionManagementService {
     @Autowired
     UserLogRepository userLogRepository;
 
-    public List<UserLog> retrieveUserLogs(String userId) {
-        return userLogRepository.findByUserId(userId);
+    public List<UserLog> retrieveUserLogs(String username) {
+        return userLogRepository.findByUsername(username);
     }
 
     public boolean createUserSession(UserLog userLog) {

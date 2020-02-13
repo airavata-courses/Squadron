@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 import java.util.logging.Logger;
 
 @Component
@@ -43,7 +40,7 @@ public class SessionConsumers{
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Arrays.asList(config.getKafkaListenerTopics()));
 
-        List<UserLog> buffer = new ArrayList<>();
+
         int minBatchSize = 1;
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
@@ -58,12 +55,17 @@ public class SessionConsumers{
                     e.printStackTrace();
                 }
 
-                buffer.add(userlog);
-            }
-            if (buffer.size() >= minBatchSize) {
-                repository.saveAll(buffer);
-                consumer.commitSync();
-                buffer.clear();
+                if(userlog != null){
+                    Optional<UserLog> userLogOption = repository.findById(userlog.getRequest_id());
+                   if(userLogOption.isPresent()) {
+                       UserLog old = userLogOption.get();
+                       old.setStatus(userlog.getStatus());
+                       old.setModel_result(userlog.getModel_result());
+                       old.setPost_processed_result(userlog.getPost_processed_result());
+                       repository.save(old);
+                       consumer.commitSync();
+                   }
+                }
             }
         }
     }
