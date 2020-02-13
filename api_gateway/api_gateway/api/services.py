@@ -1,8 +1,18 @@
+import io
+
+import jsonpickle
 import requests
 
 # returns status and login token
 import uuid
 from django.conf import settings
+
+from api.serializers import Experiment
+
+from api.serializers import ExperimentSerializer
+from rest_framework.parsers import JSONParser
+from rest_framework.renderers import JSONRenderer
+from rest_framework.utils import json
 
 
 def user_login(username, password):
@@ -20,29 +30,41 @@ def user_login(username, password):
         return {'login': 'failed'}
 
 
-def record_experiment(username, house_area, pincode, months=[], request_id=None):
-    if request_id is None:
-        request_id = username + uuid.uuid4()
-
+def create_experiment(experiment):
     url = settings.SESSION_MANAGEMENT_SERVICE_URL + ''
 
-    params = {'requestId': request_id,
+    '''params = {'requestId': request_id,
               'userId': username,
               'pincode': pincode,
               'houseArea': house_area,
               'status': 'PENDING',
-              'months': months}
+              'months': months}'''
+    serializer = ExperimentSerializer(experiment)
+    # content = JSONRenderer().render(serializer.data)
+    print(serializer.data)
+    print(json.dumps(serializer.data))
 
-    r = requests.post(url,
-                      json=params,
-                      headers={'content-type': 'application/json'}
-                      )
+    try:
+        response = requests.post(url,
+                                 json=serializer.data,
+                                 headers={'content-type': 'application/json'}
+                                 )
+    except:
+        print("error")
 
-    if r.status_code == 200:
-        trigger_experiment(request_id, house_area, pincode, months)
+    '''if response.status_code == 200:
+        # trigger_experiment(request_id, house_area, pincode, months)
         return {}
     else:
         return {}
+    '''
+
+
+def update_experiment(experiment):
+    serializer = ExperimentSerializer(experiment)
+    # content = JSONRenderer().render(serializer.data)
+    print(serializer.data)
+    print(json.dumps(serializer.data))
 
 
 def trigger_experiment(request_id, house_area, pincode, months=[]):
@@ -62,3 +84,25 @@ def trigger_experiment(request_id, house_area, pincode, months=[]):
         return {}
     else:
         return {}
+
+
+def get_all_experiments(username=None):
+    # TODO remove this code
+    experiment_1 = Experiment('admin', 1234, 110095, [1, 2, 6], '213213dfewfdfvadsf', "PENDING")
+    experiment_2 = Experiment('admin', 1578, 110092, [2, 5], '23423fbgrfbg', "PENDING")
+    experiments = [experiment_1, experiment_2]
+    json_data = jsonpickle.encode(experiments, unpicklable=False)
+
+    data = json.loads(json_data)
+    serializer = ExperimentSerializer(data=data, many=True)
+    serializer.is_valid(raise_exception=True)
+
+    return serializer
+
+
+def get_experiment(request_id):
+    # TODO remove this code
+    serializer = get_all_experiments()
+    for experiment in serializer.save():
+        if experiment.request_id == request_id:
+            return experiment

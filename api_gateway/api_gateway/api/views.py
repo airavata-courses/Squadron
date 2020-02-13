@@ -1,13 +1,20 @@
+import uuid
 from django.http import JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
+from rest_framework import mixins
+from rest_framework.response import Response
 from rest_framework.utils import json
 from rest_framework.views import APIView
 
 from api.services import user_login
 
-from api.services import record_experiment
+from rest_framework.viewsets import GenericViewSet
+
+from api.serializers import ExperimentSerializer
+
+from api import services
 
 
 class RegisterUserView(APIView):
@@ -33,7 +40,6 @@ class LoginUserView(APIView):
 
 class CreateExperiment(APIView):
     def post(self, request, path="/", format=None):
-
         data = json.loads(request.body)
         username = data['username']
         house_area = data["house_area"]
@@ -41,3 +47,37 @@ class CreateExperiment(APIView):
         months = data["months"]
 
         create_experiment_status = record_experiment(username, house_area, pincode, months)
+
+
+class ExperimentViewSet(mixins.CreateModelMixin,
+                        mixins.RetrieveModelMixin,
+                        mixins.UpdateModelMixin,
+                        mixins.ListModelMixin,
+                        GenericViewSet):
+    serializer_class = ExperimentSerializer
+    lookup_field = 'request_id'
+
+    def perform_create(self, serializer):
+        experiment = serializer.save(request_id=str(uuid.uuid4()), status="PENDING")
+        services.create_experiment(experiment)
+        return
+
+    def get_instance(self, lookup_value):
+        return services.get_experiment(lookup_value)
+
+    def get_object(self):
+        lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
+        lookup_value = self.kwargs[lookup_url_kwarg]
+        inst = self.get_instance(lookup_value)
+        return inst
+
+    def perform_update(self, serializer):
+        services.update_experiment(serializer.save(status="PENDING"))
+        return
+
+    def get_queryset(self):
+        return
+
+    def list(self, request, *args, **kwargs):
+        serializer = services.get_all_experiments()
+        return Response(serializer.data)
