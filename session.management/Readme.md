@@ -2,7 +2,7 @@
 
 APIs exposed to API server
 
-#### To create a new experiment
+#### To create a new request
 ```
 POST http://localhost:9096/api/v1/session
 ```
@@ -16,4 +16,16 @@ Sample request
 	"status": "PENDING",
 	"house_area":2
 }
+```
+
+#### Request details of a request
+
+```
+GET http://localhost:9096/api/v1/session/{request_id}
+```
+
+#### Query requests submitted by a user
+
+```
+GET http://localhost:9096/api/v1/session/user/{user1}
 ```
