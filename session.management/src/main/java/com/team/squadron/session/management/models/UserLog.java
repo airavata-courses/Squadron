@@ -10,43 +10,36 @@ import java.util.List;
 public class UserLog {
 
     @Id
-    @JsonProperty(value="RequestId")
-    String requestId;
+    String request_id;
 
-    String userId;
+    String username;
 
-    @JsonProperty(value="PinCode")
     int pincode;
 
-    @JsonProperty(value="Months")
     List<Integer> months;
 
-    @JsonProperty(value="HouseArea")
-    float houseArea;
+    float house_area;
 
-    float modelResult;
+    float model_result;
 
-    float post_processed;
+    float post_processed_result;
 
     TransactionStatus status;
 
-    public TransactionStatus getStatus() { return status; }
-
-    public void setStatus(TransactionStatus status) { this.status = status; }
-    public String getUserId() {
-        return userId;
+    public String getRequest_id() {
+        return request_id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setRequest_id(String request_id) {
+        this.request_id = request_id;
     }
 
-    public String getRequestId() {
-        return requestId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setRequestId(String requestId) {
-        this.requestId = requestId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getPincode() {
@@ -65,27 +58,35 @@ public class UserLog {
         this.months = months;
     }
 
-    public float getHouseArea() {
-        return houseArea;
+    public float getHouse_area() {
+        return house_area;
     }
 
-    public void setHouseArea(float houseArea) {
-        this.houseArea = houseArea;
+    public void setHouse_area(float house_area) {
+        this.house_area = house_area;
     }
 
-    public float getModelResult() {
-        return modelResult;
+    public float getModel_result() {
+        return model_result;
     }
 
-    public void setModelResult(float modelResult) {
-        this.modelResult = modelResult;
+    public void setModel_result(float model_result) {
+        this.model_result = model_result;
     }
 
-    public float getPost_processed() {
-        return post_processed;
+    public float getPost_processed_result() {
+        return post_processed_result;
     }
 
-    public void setPost_processed(float post_processed) {
-        this.post_processed = post_processed;
+    public void setPost_processed_result(float post_processed_result) {
+        this.post_processed_result = post_processed_result;
+    }
+
+    public TransactionStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TransactionStatus status) {
+        this.status = status;
     }
 }

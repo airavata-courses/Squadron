@@ -32,7 +32,7 @@ public class SessionManagementController {
 
     @RequestMapping(value = "api/v1/session", method = RequestMethod.PUT)
     public ResponseEntity<String> updateUserSession(@RequestBody UserLog userLog) {
-        if(!service.isUserLogExists(userLog.getRequestId())){
+        if(!service.isUserLogExists(userLog.getRequest_id())){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         if(service.updateUserLogs(userLog)){
