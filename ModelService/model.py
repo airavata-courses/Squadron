@@ -18,8 +18,9 @@ def process_data():
         for msg in consumer:
             d = bytes.decode(msg.value)
             d = json.loads(d)
+            print("model got this :", d)
             if d['Status'] == 'fail':
-                print("Failed to process the request because data retrieaval failed")
+                print("Failed to process the request because data retrieval failed")
                 d['status'] = "FAILED"
                 print("Model execution service started producing!!")
                 producer.send("modelExecutionResult", json.dumps(d).encode())
@@ -30,13 +31,16 @@ def process_data():
         
             result = compute(d)
             print("Model execution service started producing!!")
+            print("Produced by session service: ", result)
             producer.send("modelExecutionResult", result)
+            sys.stdout.flush()
+            sys.stderr.flush()
             producer.flush()
 
 
 def compute(d):
     # Assuming 4 members per family consuming 50 gallons per month
-    print("Received from kafka", d)
+
     rain_total = sum_rain(d)
     area = d["house_area"]
     water_save = water(area, rain_total)
@@ -55,7 +59,7 @@ def sum_rain(input_data):
 
 
 def water(area, rain_fall):
-    water_store = 0.56*area*rain_fall;
+    water_store = 0.56*area*rain_fall
     return water_store
 
 
