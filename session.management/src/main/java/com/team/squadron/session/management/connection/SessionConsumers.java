@@ -40,8 +40,6 @@ public class SessionConsumers{
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Arrays.asList(config.getKafkaListenerTopics()));
 
-
-        int minBatchSize = 1;
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
 
@@ -50,21 +48,11 @@ public class SessionConsumers{
                 UserLog userlog = null;
                 try {
                     userlog = new ObjectMapper().readValue(record.value(), UserLog.class);
-                    logger.info(userlog.toString());
+                    logger.info("Session got  a new msg");
+                    repository.save(userlog);
+                    consumer.commitSync();
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
-                }
-
-                if(userlog != null){
-                    Optional<UserLog> userLogOption = repository.findById(userlog.getRequest_id());
-                   if(userLogOption.isPresent()) {
-                       UserLog old = userLogOption.get();
-                       old.setStatus(userlog.getStatus());
-                       old.setModel_result(userlog.getModel_result());
-                       old.setPost_processed_result(userlog.getPost_processed_result());
-                       repository.save(old);
-                       consumer.commitSync();
-                   }
                 }
             }
         }

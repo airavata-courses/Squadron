@@ -38,9 +38,9 @@ def compute(d):
     # Assuming 4 members per family consuming 50 gallons per month
     print("Received from kafka", d)
     rain_total = sum_rain(d)
-    area = d["HouseArea"]
+    area = d["house_area"]
     water_save = water(area, rain_total)
-    d["modelResult"] = water_save
+    d["model_result"] = water_save
     print(d)
     return json.dumps(d).encode()
 

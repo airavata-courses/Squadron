@@ -10,6 +10,9 @@ while ! $(nc -z -w 2 mongo 27017); do
 done
 echo "Mongo connected."
 
+echo "compiling code..."
+mvn compile
+
 echo "Starting server"
 mvn exec:java@Server &
 

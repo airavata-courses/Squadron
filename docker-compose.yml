@@ -28,7 +28,7 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: kafka1
       KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka1:9092"
 
-  mode:
+  dataRetrieval:
     image: data_retrieval
     ports:
       - 9093:9093

@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"DataRetrieval/connections"
-	"DataRetrieval/router"
 	"encoding/json"
 	"fmt"
 	"github.com/Shopify/sarama"
@@ -14,6 +13,7 @@ type rainFallRequest struct {
 	PinCode   int `json:"pincode"`
 	Months    []int`json:"months"`
 	RequestId string `json:"request_id"`
+	Username string `json:"username"`
 }
 
 type resultPacket struct {
@@ -40,14 +40,13 @@ type DataRetrievalErrorResponse struct {
 }
 
 func RetrieveRainData(w http.ResponseWriter, r *http.Request) {
-	params := router.Params(r)
+
 	decoder := json.NewDecoder(r.Body)
 	userRequest := rainFallRequest{}
 	err := decoder.Decode(&userRequest)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 	}
-	userRequest.RequestId = params["request_id"]
 	go RetrieveAndSendData(userRequest)
 	w.WriteHeader(http.StatusOK)
 }
