@@ -23,6 +23,7 @@ def process_data():
                 print("Failed to process the request because data retrieval failed")
                 d['status'] = "FAILED"
                 print("Model execution service started producing!!")
+                print("model sent this:", d)
                 producer.send("modelExecutionResult", json.dumps(d).encode())
                 sys.stdout.flush()
                 sys.stderr.flush()
@@ -31,7 +32,7 @@ def process_data():
         
             result = compute(d)
             print("Model execution service started producing!!")
-            print("Produced by session service: ", result)
+            print("Produced by model service: ", result)
             producer.send("modelExecutionResult", result)
             sys.stdout.flush()
             sys.stderr.flush()

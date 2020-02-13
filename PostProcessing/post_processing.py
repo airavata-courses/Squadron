@@ -17,7 +17,10 @@ def process_data():
             print("Post processing service started producing!!")
             if d['Status'] == "fail":
                 print("Passing failed process")
+                print("Post processing sending this: ", d)
                 producer.send("postProcessingResult", json.dumps(d).encode())
+                sys.stdout.flush()
+                sys.stderr.flush()
                 continue
             result = compute(d)
             print("Post processing producing this: ", result)
