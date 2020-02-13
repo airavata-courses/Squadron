@@ -15,27 +15,27 @@ Change the directory to the cloned repository
 To build the Data Retrival run the following command in the DataRetrival directory 
 
 ```
-run docker build -t data_retrieval
+run docker build -t data_retrieval .
 ```
 
 To build the Model Service run the following command in the ModelService directory
 
 ```
-run docker build -t model
+run docker build -t model .
 
 ```
 
 To build the Post Processing service run the following command in the PostProcessing directory
 
 ```
-run docker build -t post_processing
+run docker build -t post_processing .
 ```
 
 
 To build the Session Management folder run the following command in the session.management directory
 
 ```
-run docker build -t session
+run docker build -t session .
 
 ```
 
