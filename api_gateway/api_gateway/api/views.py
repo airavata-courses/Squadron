@@ -79,5 +79,6 @@ class ExperimentViewSet(mixins.CreateModelMixin,
         return
 
     def list(self, request, *args, **kwargs):
-        serializer = services.get_all_experiments()
+        username = json.loads(request.body)['username']
+        serializer = services.get_all_experiments(username)
         return Response(serializer.data)

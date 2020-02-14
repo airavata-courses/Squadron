@@ -30,8 +30,22 @@ def user_login(username, password):
         return {'login': 'failed'}
 
 
+def token_verify(token):
+    url = settings.USER_SERVICE_URL + 'api/api-token-verify/'
+    params = {'token': token}
+
+    r = requests.post(url,
+                      json=params,
+                      headers={'content-type': 'application/json'}
+                      )
+
+    if r.status_code == 200:
+        return True
+    else:
+        return False
+
+
 def create_experiment(experiment):
-    trigger_experiment(experiment)
     url = settings.SESSION_MANAGEMENT_SERVICE_URL + 'api/v1/session/'
 
     params = {'request_id': experiment.request_id,
@@ -52,29 +66,31 @@ def create_experiment(experiment):
                                  )
     except:
         print("error")
-
-    '''if response.status_code == 200:
-        # trigger_experiment(request_id, house_area, pincode, months)
+    print("Response from session management: ", response)
+    if response.status_code == 201:
+        print("Trigger experiment is called here")
+        trigger_experiment(experiment)
         return {}
     else:
         return {}
-    '''
 
 
 def trigger_experiment(experiment):
-    url = settings.DATA_RETRIEVAL_SERVICE_URL + 'api/v1/request/rain/' + experiment.request_id
+    url = settings.DATA_RETRIEVAL_SERVICE_URL + 'api/v1/request/rain/'
     params = {
-        'requestId': experiment.request_id,
-        'PinCode': experiment.pincode,
-        'HouseArea': experiment.house_area,
-        'Months': experiment.months
+        'username': experiment.username,
+        'request_id': experiment.request_id,
+        'pincode': experiment.pincode,
+        'house_area': experiment.house_area,
+        'months': experiment.months
     }
 
     r = requests.post(url,
                       json=params,
                       headers={'content-type': 'application/json'}
                       )
-
+    print(r.status_code)
+    print(r)
     if r.status_code == 200:
         print("Sent successfully")
         return {}
@@ -89,25 +105,34 @@ def update_experiment(experiment):
     print(json.dumps(serializer.data))
 
 
-
-
 def get_all_experiments(username=None):
-    # TODO remove this code
+    url = settings.SESSION_MANAGEMENT_SERVICE_URL + 'api/v1/session/user/' + username
+
+    '''# TODO remove this code
     experiment_1 = Experiment('admin', 1234, 110095, [1, 2, 6], '213213dfewfdfvadsf', "PENDING")
     experiment_2 = Experiment('admin', 1578, 110092, [2, 5], '23423fbgrfbg', "PENDING")
     experiments = [experiment_1, experiment_2]
     json_data = jsonpickle.encode(experiments, unpicklable=False)
-
-    data = json.loads(json_data)
-    serializer = ExperimentSerializer(data=data, many=True)
+    '''
+    response = requests.get(url)
+    json_data = response.json()
+    print(response.json())
+    # data = json.loads(json_data)
+    serializer = ExperimentSerializer(data=json_data, many=True)
     serializer.is_valid(raise_exception=True)
 
     return serializer
 
 
 def get_experiment(request_id):
-    # TODO remove this code
-    serializer = get_all_experiments()
-    for experiment in serializer.save():
-        if experiment.request_id == request_id:
-            return experiment
+    url = settings.SESSION_MANAGEMENT_SERVICE_URL + 'api/v1/session/' + request_id
+    response = requests.get(url)
+    json_data = response.json()
+    print(json_data)
+
+    serializer = ExperimentSerializer(data=json_data)
+    serializer.is_valid(raise_exception=True)
+
+    experiment = serializer.save()
+
+    return experiment

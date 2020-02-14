@@ -30,7 +30,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # Application parameters
 USER_SERVICE_URL = "http://127.0.0.1:8000/"
-SESSION_MANAGEMENT_SERVICE_URL = "http://127.0.0.1:9094/"
+SESSION_MANAGEMENT_SERVICE_URL = "http://127.0.0.1:9096/"
 DATA_RETRIEVAL_SERVICE_URL = "http://127.0.0.1:9093/"
 
 # Application definition
