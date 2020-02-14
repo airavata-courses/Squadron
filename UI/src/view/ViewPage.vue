@@ -12,8 +12,14 @@
 					<th> status</th>
 				</tr>
 			</thead>
-			<tr v-for="i in session[0]">
-				<td v-for="j in session">{{j[i]}}</td>
+			<tr v-for="session in this.sessions">
+				<td> {{ session.request_id }} </td>
+				<td> {{ session.username }} </td>
+				<td> {{ session.house_area }} </td>
+				<td> {{ session.months }} </td>
+				<td> {{ session.username }} </td>
+
+
 			</tr>
 		</table>
     <p>
@@ -26,15 +32,19 @@
 	export default {
 		data () {
 			return {
-session:''
+			sessions: []
             }
 		},
     created () {
-			axios.get('http://localhost:7000/test')
+			axios.get('http://localhost:7000/api/experiments', {
+				params: {
+					username: "admin"
+				}
+			})
 			.then(
 				response => {
-					this.session = response.body
-					// console.log(response)
+					this.sessions = response.data
+					console.log(this.sessions)
 				})
 			.catch(function(error){
 				console.log(error)

@@ -64,7 +64,7 @@ export default {
       e.preventDefault();
                     let currentObj = this;
                     axios.post('http://localhost:7000/api/experiments/', {
-                        username:this.$store.state.authentication.user.username,
+                        username:"admin",
                         house_area:this.Area,
                         pincode: this.zipcode,
                         months: this.checkedNames

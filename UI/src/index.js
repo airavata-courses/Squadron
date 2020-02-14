@@ -10,8 +10,8 @@ Vue.use(VueRouter);
 import { ValidationProvider } from 'vee-validate';
 Vue.component('ValidationProvider', ValidationProvider);
 // setup fake backend
-import { configureFakeBackend } from './_helpers';
-configureFakeBackend();
+//import { configureFakeBackend } from './_helpers';
+//configureFakeBackend();
 
 new Vue({
     el: '#app',
