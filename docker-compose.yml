@@ -1,0 +1,74 @@
+---
+version: '2'
+services:
+  zookeeper1:
+    image: confluentinc/cp-zookeeper:3.0.1
+    ports:
+      - "8081:2181"
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 5
+      ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_SERVERS: zookeeper1:2888:3888
+
+
+  kafka1:
+    image: confluentinc/cp-kafka:3.0.1
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper1
+
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper1:2181
+      KAFKA_CREATE_TOPICS: "rainResults:0:1,modelExecutionResult:0:1,postProcessingResult:0:1"
+      KAFKA_ADVERTISED_HOST_NAME: kafka1
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka1:9092"
+
+  dataRetrieval:
+    image: data_retrieval
+    ports:
+      - 9093:9093
+    depends_on:
+      - kafka1
+    environment:
+      KAFKA: kafka1:9092
+      HOST: "0.0.0.0"
+      PORT: "9093"
+
+  modelExecution:
+    image: model
+    ports:
+      - 9094:9094
+    depends_on:
+      - kafka1
+    environment:
+      KAFKA: kafka1:9092
+
+  postProcessing:
+    image: post_processing
+    ports:
+      - 9095:9095
+    depends_on:
+      - kafka1
+    environment:
+      KAFKA: kafka1:9092
+  
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: UserLog
+
+  session:
+    image: session
+    ports:
+      - 9096:9096
+    depends_on:
+      - kafka1
+      - mongo
