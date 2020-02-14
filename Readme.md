@@ -11,6 +11,11 @@ To run and check the project please install the latest version of [docker](https
 ```
 git clone https://github.com/airavata-courses/Squadron.git
 ```
+Checkout develop branch
+
+```
+git checkout develop
+```
 
 Change the directory to the cloned repository 
 
