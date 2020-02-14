@@ -78,9 +78,3 @@ services:
     ports:
       - 8000:8000
   
-  api_gateway:
-    image: api_gateway
-    ports:
-      - 7000:7000
-  
-  
