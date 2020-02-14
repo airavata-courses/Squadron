@@ -67,12 +67,19 @@ cd user_management
 docker build -t user .
 ```
 ### Api Gateway
-To build the API gateway run the following command in the api_gateway directory
+To start the API gateway run the following command in the api_gateway directory
 
 ```
 cd api_gateway
-docker build -t api_gateway .
 ```
+Create a python virtual environment and activate it
+```
+pip install -r requirements.txt
+```
+```
+python api_gateway/manage.py runserver 7000
+```
+
 To run all the above mentioned services and kafka run the following command in the root directory of the Squadron folder. 
 ```
 docker-compose up -d
