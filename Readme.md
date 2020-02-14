@@ -7,7 +7,7 @@ To run and check the project please install the latest version of [docker](https
 1) go to terminal in Mac/Linux or command promt in Windows and execute the following command .
 
 ```
-git clone https://github.com/airavata-courses/Squadron/tree/aarushi-develop
+git clone https://github.com/airavata-courses/Squadron.git
 ```
 
 Change the directory to the cloned repository 
@@ -15,27 +15,27 @@ Change the directory to the cloned repository
 To build the Data Retrival run the following command in the DataRetrival directory 
 
 ```
-run docker build -t data_retrieval .
+docker build -t data_retrieval .
 ```
 
 To build the Model Service run the following command in the ModelService directory
 
 ```
-run docker build -t model .
+docker build -t model .
 
 ```
 
 To build the Post Processing service run the following command in the PostProcessing directory
 
 ```
-run docker build -t post_processing .
+docker build -t post_processing .
 ```
 
 
 To build the Session Management folder run the following command in the session.management directory
 
 ```
-run docker build -t session .
+docker build -t session .
 
 ```
 
