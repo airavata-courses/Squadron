@@ -82,7 +82,7 @@ Check the status of the services. All the services should be up
 docker-compose ps
 ```
 
-###User Interface
+### User Interface
 
 To Run the User Interface run the the following command in the UI directory 
 
