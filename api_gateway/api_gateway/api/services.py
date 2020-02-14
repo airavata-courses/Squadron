@@ -59,10 +59,10 @@ def create_experiment(experiment):
     print(serializer.data)
     print(json.dumps(serializer.data))
 
-        response = requests.post(url,
-                                 json=serializer.data,
-                                 headers={'content-type': 'application/json'}
-                                 )
+    response = requests.post(url,
+                             json=serializer.data,
+                             headers={'content-type': 'application/json'}
+                             )
     if response.status_code == 201:
         print("Trigger experiment is called here")
         trigger_experiment(experiment)
