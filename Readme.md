@@ -32,15 +32,28 @@ docker build -t post_processing .
 ```
 
 
-To build the Session Management folder run the following command in the session.management directory
+To build the Session Management service run the following command in the session.management directory
 
 ```
 docker build -t session .
 
 ```
 
-To run all the above mentioned services run the following command in the root directory of the Squadron folder. 
+To build the User Management service run the following command in the user_management directory
 
+```
+docker build -t user .
+
+```
+
+To build the API gateway run the following command in the api_gateway directory
+
+```
+docker build -t api_gateway .
+
+```
+
+To run all the above mentioned services run the following command in the root directory of the Squadron folder. 
 ```
 docker-compose up -d
 
