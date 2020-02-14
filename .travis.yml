@@ -1,0 +1,12 @@
+sudo: required
+dist: trusty
+
+services:
+- docker
+
+install:
+- docker-compose -f ./user_management/docker-compose.yml  pull
+- docker-compose -f ./user_management/docker-compose.yml build
+
+script:
+-  docker-compose -f ./user_management/docker-compose.yml run --no-deps --rm app user_management/manage.py test api -v 2;
