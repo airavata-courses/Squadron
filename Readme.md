@@ -82,4 +82,39 @@ Check the status of the services. All the services should be up
 docker-compose ps
 ```
 
+### User Interface
+
+To Run the User Interface run the the following command in the UI directory 
+
+```
+cd UI
+
+npm install 
+
+npm start
+
+```
+
+open http://localhost:8080/ in your browser 
+
+Click on the register button to register to create a new user 
+
+click on Finish registration button to complete registration 
+
+click on login with registered credentials to login with new credentials 
+
+Once you login , Please enter the inputs as per instructions shown on the screen and click on submit button
+
+click on view sessions buttoon to view all the sessions user as created. 
+
+
+
+
+
+
+
+
+
+
+
 
