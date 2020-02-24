@@ -1,6 +1,6 @@
 Please check the develop branch for the latest version of the appliction and instructions followed in the same branch,
 
-please check UI-final branch for the repository of the User Interface
+Please check UI-final branch for the repository of the User Interface
 
 
 
