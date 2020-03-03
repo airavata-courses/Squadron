@@ -116,8 +116,10 @@ click on view sessions buttoon to view all the sessions user as created.
 
 
 
+Due to the current bug in the user registration please use the following credentials for logging in to the application. 
 
-
+username : admin
+password : Password@1
 
 
 
