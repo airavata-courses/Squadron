@@ -11,6 +11,6 @@ install:
 - docker build -t data_retrieval ./DataRetrieval
 
 script:
-- docker run session /bin/bash -c "mvn build; mvn test"
-- docker run data_retrieval sh -c "cd handlers; go test"
+- docker run session /bin/bash -c "mvn test"
+- docker run data_retrieval sh -c "cd handlers; CGO_ENABLED=0 go test"
 - docker-compose -f ./user_management/docker-compose.yml run --no-deps --rm app user_management/manage.py test api -v 2;
