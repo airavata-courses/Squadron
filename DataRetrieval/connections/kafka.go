@@ -7,9 +7,7 @@ import (
 	"time"
 )
 
-var KafkaAsync = createProducer()
-
-func createProducer() sarama.AsyncProducer {
+func CreateAsyncProducer() sarama.AsyncProducer {
 	p, err := sarama.NewAsyncProducer(utils.Configs.KafkaBrokers, getConfig())
 	if err != nil {
 		panic("Unable to create kafka producer, err: " + err.Error())
