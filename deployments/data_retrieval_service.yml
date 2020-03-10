@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: data-retrieval-service
+spec:
+  type: ClusterIP
+  selector:
+    app:  data-retrieval
+  ports:
+  - protocol: TCP
+    port: 9093
+    targetPort: 9093
