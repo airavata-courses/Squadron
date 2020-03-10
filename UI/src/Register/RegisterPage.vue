@@ -46,11 +46,11 @@ Register(e){
   console.log(this.Password)
   e.preventDefault();
                     let currentObj = this;
-                    axios.post('http://localhost:7000', {
+                    axios.post('http://localhost:7000/api/register/', {
                         username: this.user_name,
                         password: this.Password,
-                        first_name:this.First_Name,
-                        Last_Name:this.Last_Name,
+                        first_name: this.First_Name,
+                        last_name: this.Last_Name,
                         email:this.Email
                     })
                     .then(function (response) {
