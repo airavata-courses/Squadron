@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.utils import json
 from rest_framework.views import APIView
 
-from api.services import user_login
+from api.services import user_login, register
 
 from rest_framework.viewsets import GenericViewSet
 
@@ -20,7 +20,17 @@ from api import services
 class RegisterUserView(APIView):
 
     def post(self, request, path="/", format=None):
-        print(request, path, format)
+
+             data = json.loads(request.body)
+             print(data)
+             register_state = register(**data)
+             resp = JsonResponse(register_state)
+
+             if register_state['register'] == 'success':
+                 resp.status_code = 200
+             else:
+                 resp.status_code = 400
+             return resp
 
 
 class LoginUserView(APIView):

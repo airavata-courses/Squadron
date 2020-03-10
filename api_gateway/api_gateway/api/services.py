@@ -15,6 +15,27 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.utils import json
 
 
+def register(username, password, first_name, last_name, email):
+    url = settings.USER_SERVICE_URL + 'api/register/'
+    params = {
+            'username': username,
+            'password': password,
+            'first_name': first_name,
+            'last_name': last_name,
+            'email': email
+            }
+
+    r = requests.create(url,
+                      json=params,
+                      headers={'content-type': 'application/json'}
+                      )
+
+    if r.status_code == 200:
+        return {'token': r.json().get('token'), 'register': 'success'}
+    else:
+        return {'register': 'failed'}
+
+
 def user_login(username, password):
     url = settings.USER_SERVICE_URL + 'api/api-token-auth/'
     params = {'username': username, 'password': password}
