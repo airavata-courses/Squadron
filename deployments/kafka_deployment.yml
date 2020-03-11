@@ -26,7 +26,5 @@ spec:
             value: zookeeper:2181
           - name: KAFKA_CREATE_TOPICS
             value: "rainResults:0:1,modelExecutionResult:0:1,postProcessingResult:0:1"
-          - name: KAFKA_ADVERTISED_HOST_NAME
-            value: kafka1
           - name: KAFKA_ADVERTISED_LISTENERS
-            value: "PLAINTEXT://127.0.0.1:9092"
+            value: "PLAINTEXT://kafka1:9092"
