@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Generating_key
-      run: cat $SECRET > jetstream_key
+      run: echo $SECRET > jetstream_key
       env: 
         SECRET: ${{ secrets.jetstream_key }}
         
