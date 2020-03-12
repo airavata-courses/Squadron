@@ -13,4 +13,4 @@ jobs:
         SECRET: ${{ secrets.jetstream_key }}
         
     - name: create file on jestream server
-      run: ssh -i jetstream_key ubuntu@149.165.170.106 "date > test_file"
+      run: ssh -o StrictHostKeyChecking=no -i jetstream_key ubuntu@149.165.170.106 "date > test_file"
