@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+  labels:
+    app: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: api
+        image: squadronteam/api
+        imagePullPolicy: Always
+        ports:
+            - containerPort: 7000
+              name: api-port
+        env:
+        - name: USER_PORT
+          value: user-service:8000
+        - name: DATA_PORT
+          value: data-service:9093
+        - name: SESSION_PORT
+          value: session:9096

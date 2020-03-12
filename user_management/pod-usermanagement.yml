@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: usermanagement.service.com
+  labels:
+    app: usermanagement
+spec:
+  containers:
+    - name: user
+      image: squadronteam/user
+      ports: 
+        - containerPort: 8000
