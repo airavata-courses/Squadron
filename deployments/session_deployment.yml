@@ -16,7 +16,10 @@ spec:
     spec:
       containers:
       - name: session
-        image: session
-        imagePullPolicy: Never
+        image: squadronteam/session
+        imagePullPolicy: Always
         ports:
-            - containerPort: 9094
+            - containerPort: 9096
+        env:
+        - name: KAFKA
+          value: kafka1:9092
