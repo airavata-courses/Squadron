@@ -15,4 +15,4 @@ install:
 script:
 - docker-compose -f ./user_management/docker-compose.yml run --no-deps --rm app user_management/manage.py test api -v 2;
 - docker-compose -f ./ModelService/docker-compose.yml run app python modeltest.py
-- docker-compose -f ./PostProcessing/docker-compose.yml run app python PPtest.py 
+- docker-compose -f ./PostProcessing/docker-compose.yml run app python testPP.py 
