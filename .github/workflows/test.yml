@@ -12,9 +12,5 @@ jobs:
       env: 
         SECRET: ${{ secrets.jetstream_key }}
         
-    - name: ssh to the jestream server
-      run: ssh -i jetstream_key ubuntu@149.165.170.106
-    
-    - name: create directory
-      run: mkdir testssh
-	
+    - name: create file on jestream server
+      run: ssh -i jetstream_key ubuntu@149.165.170.106 "date > test_file"
