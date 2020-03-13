@@ -22,9 +22,12 @@ jobs:
       - name: Initialize repo
         run: GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no -i github_deploy' git clone git@github.com:airavata-courses/Squadron.git
       - name: check if there is change in version to deploy
-        run: if git diff --name-only HEAD~1 | grep -q "^version$"; then export TRIGGER_DEPLOY=0; else export TRIGGER_DEPLOY=$?; fi; echo "TRIGGER_DEPLOY is set to $TRIGGER_DEPLOY"
-        working-directory: Squadron
-      - name: tag commit for deployment
-        if: env.TRIGGER_DEPLOY == 0
-        run: echo "TRIGGER_DEPLOY is set to $TRIGGER_DEPLOY" && git tag v$(cat version) && git push origin v$(cat version)
+        run: |
+          if git diff --name-only HEAD~1 | grep -q "^version$"
+          then
+            echo "Marking commit for deployment"
+            git tag v$(cat version) && git push origin v$(cat version)
+          else 
+            echo "check returned status: $?, assuming that this means there is nothing to deploy"
+          fi
         working-directory: Squadron
