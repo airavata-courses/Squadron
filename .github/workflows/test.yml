@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: generating keys
-        run: echo "$DEPLOY_KEY" > github_deploy
+        run: echo "$DEPLOY_KEY" > github_deploy && chmod 0400 github_deploy
         env:
           DEPLOY_KEY: ${{ secrets.deploy_key }}
       - name: Initialize repo
