@@ -1,0 +1,20 @@
+on:
+  release:
+    types: [published]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: run tests
+        uses: ./.github/actions/run_tests
+      - name: build docker images
+        uses: ./.github/actions/build_docker
+        with:
+                version: ${{ github.ref }}
+      - name: rollout updated version
+        uses: ./.github/actions/rollout
+        with:
+                version: ${{ github.ref }}

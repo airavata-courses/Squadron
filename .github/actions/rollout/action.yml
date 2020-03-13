@@ -1,0 +1,11 @@
+name: "roll out a version of services"
+description: "rolls out a version of services on kubernate cluster via ssh"
+inputs:
+        version:
+                description: 'version number for tagging docker images'
+                required: true
+runs:
+        using: 'docker'
+        image: 'Dockerfile'
+        args:
+                - ${{ inputs.version }}

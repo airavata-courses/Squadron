@@ -1,0 +1,11 @@
+name: "Create Docker images"
+description: "builds and pushes the docker images tagged with version provided as input"
+inputs:
+        version:
+                description: 'version number for tagging docker images'
+                required: true
+runs:
+        using: 'docker'
+        image: 'Dockerfile'
+        args:
+                - ${{ inputs.version }}
