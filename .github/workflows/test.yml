@@ -3,14 +3,22 @@ on:
     branches:
       - github_test
 jobs:
-  sshtest:
-    name: Build
+  test:
+    name: Run Tests
     runs-on: ubuntu-latest
     steps:
-    - name: Generating_key
-      run: echo "$SECRET" > jetstream_key && chmod 0600 jetstream_key
-      env: 
-        SECRET: ${{ secrets.jetstream_key }}
-        
-    - name: create file on jestream server
-      run: ssh -o StrictHostKeyChecking=no -i jetstream_key ubuntu@149.165.170.106 "date > test_file"
+      - name: ToDo
+        run: echo "need to setup tests"
+  
+  deploy:
+    name: Trigger deployement
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Initialize repo
+        run: GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no -i github_deploy' git clone git@github.com:airavata-courses/Squadron.git && cd Squadron
+      - name: check if there is change in version to deploy
+        run: git diff --name-only HEAD~1 | grep "^version$"  || export $TRIGGER_DEPLOY=$?
+      - name: tag commit for deployment
+        if: env.TRIGGER_DEPLOY == 0
+        run: git tag -a v$(cat version) -m "automatically tagged version $(cat version) via github actions" && git push origin v$(cat version)
