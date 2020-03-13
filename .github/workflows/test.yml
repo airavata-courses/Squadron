@@ -15,6 +15,10 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
+      - name: generating keys
+        run: echo "$DEPLOY_KEY" > github_deploy
+        env:
+          DEPLOY_KEY: ${{ secrets.deploy_key }}
       - name: Initialize repo
         run: GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no -i github_deploy' git clone git@github.com:airavata-courses/Squadron.git && cd Squadron
       - name: check if there is change in version to deploy
