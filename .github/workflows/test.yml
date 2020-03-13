@@ -20,9 +20,11 @@ jobs:
         env:
           DEPLOY_KEY: ${{ secrets.deploy_key }}
       - name: Initialize repo
-        run: GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no -i github_deploy' git clone git@github.com:airavata-courses/Squadron.git && cd Squadron
+        run: GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no -i github_deploy' git clone git@github.com:airavata-courses/Squadron.git
       - name: check if there is change in version to deploy
         run: git diff --name-only HEAD~1 | grep "^version$"  || export $TRIGGER_DEPLOY=$?
+        working-directory: Squadron
       - name: tag commit for deployment
         if: env.TRIGGER_DEPLOY == 0
         run: git tag -a v$(cat version) -m "automatically tagged version $(cat version) via github actions" && git push origin v$(cat version)
+        working-directory: Squadron
