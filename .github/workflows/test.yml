@@ -4,15 +4,6 @@ on:
       - github_test
 jobs:
   test:
-    name: Run Tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: ToDo
-        run: echo "need to setup tests"
-  
-  deploy:
-    name: Trigger deployement
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: checkout
