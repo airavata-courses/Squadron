@@ -21,7 +21,7 @@ jobs:
           DEPLOY_KEY: ${{ secrets.deploy_key }}
       - name: Initialize repo
         run: GIT_SSH_COMMAND='ssh -o StrictHostKeyChecking=no -i github_deploy' git clone git@github.com:airavata-courses/Squadron.git
-      - name: mark commit for deployement if version changed
+      - name: mark commit for deployment if version changed
         run: |
           if git diff --name-only HEAD~1 | grep -q "^version$"
           then
