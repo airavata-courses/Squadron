@@ -29,6 +29,8 @@
 </div>
 </template>
 <script type="text/javascript">
+import config from 'config';
+
 	export default {
 		data () {
 			return {
@@ -36,7 +38,7 @@
             }
 		},
     created () {
-			axios.get('http://localhost:7000/api/experiments', {
+			axios.get(`${config.apiUrl}experiments`, {
 				params: {
 					username: "admin"
 				}

@@ -7,7 +7,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --open"
+    "start": "webpack-dev-server --host 0.0.0.0 --open"
   },
   "dependencies": {
     "axios": "^0.19.2",

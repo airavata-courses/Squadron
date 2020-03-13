@@ -45,6 +45,8 @@ Area:<br>
 </template>
 
 <script>
+import config from 'config';
+
 export default {
   name: 'app',
   data() {
@@ -63,7 +65,7 @@ export default {
 
       e.preventDefault();
                     let currentObj = this;
-                    axios.post('http://localhost:7000/api/experiments/', {
+                    axios.post(`${config.apiUrl}experiments/`, {
                         username:"admin",
                         house_area:this.Area,
                         pincode: this.zipcode,

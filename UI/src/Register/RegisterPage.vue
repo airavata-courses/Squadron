@@ -27,6 +27,8 @@
 </div>
 </template>
 <script>
+import config from 'config';
+
 export default {
 data() {
     return {
@@ -46,7 +48,7 @@ Register(e){
   console.log(this.Password)
   e.preventDefault();
                     let currentObj = this;
-                    axios.post('http://localhost:7000/api/register/', {
+                    axios.post(`${config.apiUrl}register/`, {
                         username: this.user_name,
                         password: this.Password,
                         first_name: this.First_Name,
