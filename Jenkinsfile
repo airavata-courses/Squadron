@@ -16,8 +16,10 @@ pipeline {
     }
     stage('Build docker images') {
       steps {
-        sh "cd session.management"
-        sh "docker build -t squadronteam/session ."
+       echo 'Starting to build docker images of build ${env.BUILD_ID} in workspace ${env.WORKSPACE}'
+       script {
+              def session = docker.build("squadronteam/session:${env.BUILD_ID}","-f ${env.WORKSPACE}/session.management/Dockerfile .")
+        }
       }
     }
   }
