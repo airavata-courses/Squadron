@@ -27,7 +27,7 @@ pipeline {
         echo ' Running test cases'
         script {
           session.inside {
-            sh 'mvn test'
+            sh 'cd session.management; mvn test'
           }
         }
       }
