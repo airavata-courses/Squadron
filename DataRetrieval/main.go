@@ -1,6 +1,7 @@
 package main
 
 import (
+	"DataRetrieval/connections"
 	"DataRetrieval/handlers"
 	"DataRetrieval/router"
 	"DataRetrieval/utils"
@@ -25,7 +26,8 @@ func testKafkaConsumer(){
 
 func main() {
 	r := &router.Router{}
-	r.HandleFunc("api/v1/request/rain", handlers.RetrieveRainData).Methods(http.MethodPost)
+	kafkaAsyncProducer := connections.CreateAsyncProducer()
+	r.Handle("api/v1/request/rain", &handlers.RainDataHandler{KafkaAsyncProducer: kafkaAsyncProducer}).Methods(http.MethodPost)
 	//go testKafkaConsumer()
-	http.ListenAndServe(utils.Configs.ServiceHost+":"+utils.Configs.ServicePort, r)
+	log.Fatal(http.ListenAndServe(utils.Configs.ServiceHost+":"+utils.Configs.ServicePort, r))
 }

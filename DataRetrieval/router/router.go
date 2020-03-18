@@ -16,7 +16,7 @@ type Router struct {
 
 type handlerMappings struct {
 	pattern *regexp.Regexp
-	handler http.HandlerFunc
+	handler http.Handler
 	methods []string
 	params []string
 }
@@ -52,7 +52,7 @@ func (router *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
 }
 
-func (router *Router) HandleFunc(path string, handler http.HandlerFunc) *handlerMappings {
+func (router *Router) Handle(path string, handler http.Handler) *handlerMappings {
 	var params []string
 	for {
 		idx := urlPattern.FindStringIndex(path)

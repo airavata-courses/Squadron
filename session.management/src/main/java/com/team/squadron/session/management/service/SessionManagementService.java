@@ -11,8 +11,13 @@ import java.util.List;
 @Service
 public class SessionManagementService {
 
+
+    private final UserLogRepository userLogRepository;
+
     @Autowired
-    UserLogRepository userLogRepository;
+    public SessionManagementService(UserLogRepository userLogRepository){
+        this.userLogRepository = userLogRepository;
+    }
 
     public List<UserLog> retrieveUserLogs(String username) {
         return userLogRepository.findByUsername(username);
