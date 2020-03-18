@@ -18,7 +18,17 @@ pipeline {
       steps {
        echo 'Starting to build docker images'
        script {
-              def session = docker.build("squadronteam/data","./DataRetrieval")
+              session = docker.build("squadronteam/session","./session.management")
+        }
+      }
+    }
+    stage('Run test cases') {
+      steps {
+        echo ' Running test cases'
+        script {
+          session.inside {
+            sh 'mvn test'
+          }
         }
       }
     }
