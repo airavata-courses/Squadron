@@ -11,7 +11,7 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        git 'https://github.com/airavata-courses/Squadron.git'
+        git branch: 'develop', url: 'https://github.com/airavata-courses/Squadron.git'
       }
     }
     stage('Build docker images') {
