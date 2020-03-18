@@ -18,7 +18,7 @@ pipeline {
       steps {
        echo 'Starting to build docker images'
        script {
-              def session = docker.build("squadronteam/session","./session.management")
+              def session = docker.build("squadronteam/data","./DataRetrieval")
         }
       }
     }
