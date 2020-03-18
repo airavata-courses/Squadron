@@ -14,6 +14,17 @@ pipeline {
         git 'https://github.com/airavata-courses/Squadron.git'
       }
     }
+    stage('Build docker images') {
+      steps {
+        sh "docker build -t squadronteam/session ./session.management"
+      }
+    }
+
+    stage('Run unit test cases'){
+      steps{
+        sh "docker run squadronteam/session /bin/bash -c "mvn test""
+      }
+    }
 
   }
 
