@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"DataRetrieval/connections"
 	"encoding/json"
 	"fmt"
 	"github.com/Shopify/sarama"
@@ -39,7 +38,11 @@ type DataRetrievalErrorResponse struct {
 	msg string
 }
 
-func RetrieveRainData(w http.ResponseWriter, r *http.Request) {
+type RainDataHandler struct{
+	KafkaAsyncProducer sarama.AsyncProducer
+}
+
+func (rdh *RainDataHandler) ServeHTTP (w http.ResponseWriter, r *http.Request) {
 
 	decoder := json.NewDecoder(r.Body)
 	userRequest := rainFallRequest{}
@@ -47,11 +50,10 @@ func RetrieveRainData(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 	}
-	go RetrieveAndSendData(userRequest)
+	go RetrieveAndSendData(rdh.KafkaAsyncProducer, userRequest)
 	w.WriteHeader(http.StatusOK)
 }
-
-func RetrieveAndSendData(userRequest rainFallRequest) {
+func PreparePacket(userRequest rainFallRequest) resultPacket{
 	packet := resultPacket{rainFallRequest: userRequest}
 	response, err := getRainData(userRequest.PinCode)
 	if err != nil {
@@ -71,9 +73,13 @@ func RetrieveAndSendData(userRequest rainFallRequest) {
 		packet.RainFallData = data
 		fmt.Println(packet)
 	}
+	return packet
+}
+func RetrieveAndSendData(kafkaAsyncProducer sarama.AsyncProducer, userRequest rainFallRequest) {
 
+	packet := PreparePacket(userRequest)
 	packetJson, _ := json.Marshal(packet)
-	connections.KafkaAsync.Input() <- &sarama.ProducerMessage{
+	kafkaAsyncProducer.Input() <- &sarama.ProducerMessage{
 		Topic:     "rainResults",
 		Key:       nil,
 		Value:     sarama.StringEncoder(packetJson),
