@@ -16,7 +16,8 @@ pipeline {
     }
     stage('Build docker images') {
       steps {
-        sh "docker build -t squadronteam/session ./session.management"
+        sh "cd session.management"
+        sh "docker build -t squadronteam/session ."
       }
     }
   }
