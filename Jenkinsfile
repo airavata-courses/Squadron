@@ -19,13 +19,6 @@ pipeline {
         sh "docker build -t squadronteam/session ./session.management"
       }
     }
-
-    stage('Run unit test cases'){
-      steps{
-        sh "docker run squadronteam/session /bin/bash -c "mvn test""
-      }
-    }
-
   }
 
 }
