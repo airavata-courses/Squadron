@@ -40,8 +40,7 @@ pipeline {
             sh 'cd PostProcessing; python testPP.py'
           }
           data.inside('-u root --privileged') {
-            sh 'pwd && cd /app && go mod tidy'
-            //sh 'cd /app/handlers; GOCACHE=/tmp/cache CGO_ENABLED=0 go test'
+            sh 'cd /app/handlers; GOCACHE=/tmp/cache CGO_ENABLED=0 go test'
           }
         }
       }
