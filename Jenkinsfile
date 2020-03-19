@@ -6,7 +6,7 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        git branch: 'develop', url: 'https://github.com/airavata-courses/Squadron.git'
+        git branch: 'squadron-jenkins', url: 'https://github.com/airavata-courses/Squadron.git'
       }
     }
     stage('Build docker images') {
@@ -57,6 +57,13 @@ pipeline {
             user.push()
             api.push()
           }
+        }
+      }
+    }
+    stage('Deploy to Kubernetes') {
+      steps {
+        script {
+          kubernetesDeploy(configs: "session_deployment.yaml", kubeconfigId: "kubeid")
         }
       }
     }
