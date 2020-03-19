@@ -1,8 +1,5 @@
 pipeline {
 
-  environment {
-  }
-
   agent any
 
   stages {
@@ -35,8 +32,11 @@ pipeline {
       }
     }
     stage('Push docker images'){
-      session.push()
-      data.push()
+      steps {
+        echo 'Pushing docker images to the repository'
+        session.push()
+        data.push()
+      }
     }
   }
 
