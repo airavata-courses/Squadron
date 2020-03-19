@@ -32,6 +32,7 @@ pipeline {
       steps {
         echo 'Pushing docker images to the repository'
         script {
+          docker.withRegistry('https://registry.hub.docker.com', '047c1f6d-ef5a-440c-9e89-6a5e895d618d')
           session.push()
           data.push()
         }
