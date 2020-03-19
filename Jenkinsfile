@@ -32,7 +32,13 @@ pipeline {
             sh 'cd ModelService; python modeltest.py'
           }
           user.inside {
-            sh 'user_management/manage.py test api -v 2'
+            sh 'cd user_management; user_management/manage.py test'
+          }
+          post.inside {
+            sh 'cd PostProcessing; python testPP.py'
+          }
+          data.inside {
+            sh 'cd DataRetrieval/handlers; CGO_ENABLED=0 go test'
           }
         }
       }
