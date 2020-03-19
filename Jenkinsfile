@@ -15,6 +15,11 @@ pipeline {
        script {
               session = docker.build("squadronteam/session","./session.management")
               data = docker.build("squadronteam/data", "./DataRetrieval")
+              model = docker.build("squadronteam/model", "./ModelService")
+              post = docker.build("squadronteam/post", "./PostProcessing")
+              user = docker.build("squadronteam/user", "./user_management")
+              api = docker.build("squadronteam/api", "./api_gateway")
+
         }
       }
     }
@@ -25,8 +30,17 @@ pipeline {
           session.inside {
             sh 'cd session.management; mvn test'
           }
-          data.inside {
-            sh 'cd DataRetrieval/handlers; CGO_ENABLED=0 go test'
+          model.inside {
+            sh 'cd ModelService; python modeltest.py'
+          }
+          user.inside {
+            sh 'cd user_management; user_management/manage.py test api -v 2'
+          }
+          post.inside {
+            sh 'cd PostProcessing; python testPP.py'
+          }
+          data.inside('-u root --privileged') {
+            sh 'cd /app/handlers; GOCACHE=/tmp/cache CGO_ENABLED=0 go test'
           }
         }
       }
@@ -35,8 +49,14 @@ pipeline {
       steps {
         echo 'Pushing docker images to the repository'
         script {
-          session.push()
-          data.push()
+          docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials'){
+            session.push()
+            data.push()
+            model.push()
+            post.push()
+            user.push()
+            api.push()
+          }
         }
       }
     }
