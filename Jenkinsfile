@@ -28,6 +28,9 @@ pipeline {
           session.inside {
             sh 'cd session.management; mvn test'
           }
+          model.inside {
+            sh 'python modeltest.py'
+          }
         }
       }
     }
