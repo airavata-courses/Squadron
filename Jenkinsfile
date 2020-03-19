@@ -15,6 +15,9 @@ pipeline {
        script {
               session = docker.build("squadronteam/session","./session.management")
               data = docker.build("squadronteam/data", "./DataRetrieval")
+              model = docker.build("squadronteam/model", "./ModelService")
+              post = docker.build("squadronteam/post", "./PostProcessing")
+              user = docker.build("squadronteam/user", "./user_management")
         }
       }
     }
