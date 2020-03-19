@@ -60,21 +60,6 @@ pipeline {
         }
       }
     }
-    stage('Deploy to Kubernetes') {
-      steps {
-        script {
-              withCredentials([sshUserPrivateKey(credentialsId: 'sshUser', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
-                def remote = [:]
-                remote.name = "master"
-                remote.host = "149.165.170.106"
-                remote.user = userName
-                remote.allowAnyHosts = true
-                remote.identityFile = identity
-                sshCommand remote: remote, command: 'helm list'
-              }
-        }
-      }
-    }
   }
 
 }
