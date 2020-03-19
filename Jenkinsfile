@@ -40,7 +40,7 @@ pipeline {
             sh 'cd PostProcessing; python testPP.py'
           }
           data.inside {
-            sh 'cd DataRetrieval/handlers; GOCACHE='/tmp/cache' CGO_ENABLED=0 go test'
+            sh 'cd DataRetrieval/handlers; GOCACHE=/tmp/cache CGO_ENABLED=0 go test'
           }
         }
       }
