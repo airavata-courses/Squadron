@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: session-deployment
+  labels:
+    app: session
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: session
+  template:
+    metadata:
+      labels:
+        app: session
+    spec:
+      containers:
+      - name: session
+        image: squadronteam/session
+        imagePullPolicy: Always
+        ports:
+            - containerPort: 9096
+        env:
+        - name: KAFKA
+          value: kafka1:9092
