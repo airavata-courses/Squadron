@@ -29,7 +29,10 @@ pipeline {
             sh 'cd session.management; mvn test'
           }
           model.inside {
-            sh 'python modeltest.py'
+            sh 'cd ModelService; python modeltest.py'
+          }
+          user.inside {
+            sh 'user_management/manage.py test api -v 2'
           }
         }
       }
