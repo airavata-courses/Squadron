@@ -1,10 +1,5 @@
 pipeline {
 
-  environment {
-    registry = "192.168.1.81:5000/justme/myweb"
-    dockerImage = ""
-  }
-
   agent any
 
   stages {
@@ -19,6 +14,7 @@ pipeline {
        echo 'Starting to build docker images'
        script {
               session = docker.build("squadronteam/session","./session.management")
+              data = docker.build("squadronteam/data", "./DataRetrieval")
         }
       }
     }
@@ -29,6 +25,18 @@ pipeline {
           session.inside {
             sh 'cd session.management; mvn test'
           }
+          data.inside {
+            sh 'cd DataRetrieval/handlers; CGO_ENABLED=0 go test'
+          }
+        }
+      }
+    }
+    stage('Push docker images'){
+      steps {
+        echo 'Pushing docker images to the repository'
+        script {
+          session.push()
+          data.push()
         }
       }
     }
