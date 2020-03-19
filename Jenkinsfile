@@ -12,17 +12,17 @@ pipeline {
         sh "lsb_release -a"
       }
     }
-    stage('Build docker images') {
+   /* stage('Build docker images') {
       steps {
        echo 'Starting to build docker images'
        script {
-             /* session = docker.build("squadronteam/session","./session.management")
+              session = docker.build("squadronteam/session","./session.management")
               data = docker.build("squadronteam/data", "./DataRetrieval")
               model = docker.build("squadronteam/model", "./ModelService")
               post = docker.build("squadronteam/post", "./PostProcessing")
               user = docker.build("squadronteam/user", "./user_management")
               api = docker.build("squadronteam/api", "./api_gateway")
-            */
+            
         }
       }
     }
@@ -44,21 +44,21 @@ pipeline {
           }
           data.inside('-u root --privileged') {
             sh 'cd /app/handlers; GOCACHE=/tmp/cache CGO_ENABLED=0 go test'
-          }*/
+          }
         }
       }
     }
     stage('Push docker images'){
       steps {
         echo 'Pushing docker images to the repository'
-        script {/*
+        script {
           docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials'){
             session.push()
             data.push()
             model.push()
             post.push()
             user.push()
-            api.push()*/
+            api.push()
           }
         }
       }
@@ -69,7 +69,7 @@ pipeline {
           //kubernetesDeploy(configs: "session_deployment.yml", kubeconfigId: "kubeid")
         }
       }
-    }
+    }*/
   }
 
 }
