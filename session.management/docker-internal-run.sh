@@ -5,7 +5,7 @@ done
 echo "Kafka connected."
 
 while ! $(nc -z -w 2 mongo 27017); do
-    echo "waiting for mongo..."
+    echo "waiting for squadron-mongodb..."
     sleep 0.1
 done
 echo "Mongo connected."
