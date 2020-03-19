@@ -26,7 +26,7 @@ pipeline {
             sh 'cd session.management; mvn test'
           }
           data.inside {
-            sh 'cd handlers; CGO_ENABLED=0 go test'
+            sh 'cd DataRetrieval/handlers; CGO_ENABLED=0 go test'
           }
         }
       }
