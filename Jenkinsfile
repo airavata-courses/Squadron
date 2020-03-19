@@ -13,12 +13,12 @@ pipeline {
       steps {
        echo 'Starting to build docker images'
        script {
-              session = docker.build("squadronteam/session","./session.management")
-              data = docker.build("squadronteam/data", "./DataRetrieval")
-              model = docker.build("squadronteam/model", "./ModelService")
-              post = docker.build("squadronteam/post", "./PostProcessing")
-              user = docker.build("squadronteam/user", "./user_management")
-              api = docker.build("squadronteam/api", "./api_gateway")
+              session = docker.build("squadronteam/session:${env.BUILD_ID}","./session.management")
+              data = docker.build("squadronteam/data:${env.BUILD_ID}", "./DataRetrieval")
+              model = docker.build("squadronteam/model:${env.BUILD_ID}", "./ModelService")
+              post = docker.build("squadronteam/post:${env.BUILD_ID}", "./PostProcessing")
+              user = docker.build("squadronteam/user:${env.BUILD_ID}", "./user_management")
+              api = docker.build("squadronteam/api:${env.BUILD_ID}", "./api_gateway")
 
         }
       }
