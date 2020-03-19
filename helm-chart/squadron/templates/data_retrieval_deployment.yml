@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-retrieval-deployment
+  labels:
+    app: data-retrieval
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-retrieval
+  template:
+    metadata:
+      labels:
+        app: data-retrieval
+    spec:
+      containers:
+      - name: data-retrieval
+        image: data_retrieval
+        imagePullPolicy: Never
+        ports:
+            - containerPort: 9093
+        env:
+          - name: KAFKA
+            value: kafka1:9092
+          - name: HOST
+            value: "0.0.0.0"
+          - name: PORT
+            value: "9093"

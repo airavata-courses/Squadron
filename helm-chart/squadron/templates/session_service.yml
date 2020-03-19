@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: session
+spec:
+  type: ClusterIP
+  selector:
+    app:  session
+  ports:
+  - protocol: TCP
+    port: 9096
+    targetPort: 9096
