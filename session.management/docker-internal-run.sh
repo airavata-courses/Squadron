@@ -4,7 +4,7 @@ while ! $(nc -z -w 2 kafka1 9092); do
 done
 echo "Kafka connected."
 
-while ! $(nc -z -w 2 mongo 27017); do
+while ! $(nc -z -w 2 squadron-mongodb 27017); do
     echo "waiting for squadron-mongodb..."
     sleep 0.1
 done
