@@ -34,8 +34,10 @@ pipeline {
     stage('Push docker images'){
       steps {
         echo 'Pushing docker images to the repository'
-        session.push()
-        data.push()
+        script {
+          session.push()
+          data.push()
+        }
       }
     }
   }
