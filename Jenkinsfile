@@ -1,8 +1,5 @@
 pipeline {
 
-  environment {
-  }
-
   agent any
 
   stages {
@@ -29,14 +26,19 @@ pipeline {
             sh 'cd session.management; mvn test'
           }
           data.inside {
-            sh 'cd handlers; CGO_ENABLED=0 go test'
+            sh 'cd DataRetrieval/handlers; CGO_ENABLED=0 go test'
           }
         }
       }
     }
     stage('Push docker images'){
-      session.push()
-      data.push()
+      steps {
+        echo 'Pushing docker images to the repository'
+        script {
+          session.push()
+          data.push()
+        }
+      }
     }
   }
 
