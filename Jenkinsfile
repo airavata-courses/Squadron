@@ -60,6 +60,13 @@ pipeline {
         }
       }
     }
+    stage('Deploy to Kubernetes') {
+      steps {
+        script {
+          kubernetesDeploy(configs: "session_deployment.yml", kubeconfigId: "kubeid")
+        }
+      }
+    }
   }
 
 }
