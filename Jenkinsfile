@@ -63,16 +63,15 @@ pipeline {
     stage('Deploy to Kubernetes') {
       steps {
         script {
-              withCredentials([sshUserPrivateKey(credentialsId: 'sshUser', passphraseVariable: '', usernameVariable: 'ubuntu')]) {
+              withCredentials([sshUserPrivateKey(credentialsId: 'sshUser', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
                 def remote = [:]
                 remote.name = "master"
                 remote.host = "149.165.170.106"
-                remote.user = "ubuntu"
+                remote.user = userName
                 remote.allowAnyHosts = true
-                stage("SSH Steps Rocks!") {
-                    sshCommand remote: remote, command: 'helm list'
-                  }
-                }
+                remote.identityFile = identity
+                sshCommand remote: remote, command: 'helm list'
+              }
         }
       }
     }
