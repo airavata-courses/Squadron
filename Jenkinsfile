@@ -61,9 +61,18 @@ pipeline {
       }
     }
     stage('Deploy to Kubernetes') {
+      def remote = [:]
+      remote.name = "master"
+      remote.host = "149.165.170.106"
+      remote.user = "ubuntu"
+      remote.allowAnyHosts = true
       steps {
         script {
-          kubernetesDeploy(configs: "session_deployment.yml", kubeconfigId: "kubeid")
+              withCredentials([sshUserPrivateKey(credentialsId: 'sshUser', passphraseVariable: '', usernameVariable: 'ubuntu')]) {
+                stage("SSH Steps Rocks!") {
+                    sshCommand remote: remote, command: 'helm list'
+                  }
+                }
         }
       }
     }
