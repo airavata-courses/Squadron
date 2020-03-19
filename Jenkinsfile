@@ -25,9 +25,6 @@ pipeline {
           session.inside {
             sh 'cd session.management; mvn test'
           }
-          data.inside {
-            sh 'cd DataRetrieval/handlers; CGO_ENABLED=0 go test -count=1'
-          }
         }
       }
     }
