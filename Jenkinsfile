@@ -19,6 +19,7 @@ pipeline {
               post = docker.build("squadronteam/post", "./PostProcessing")
               user = docker.build("squadronteam/user", "./user_management")
               api = docker.build("squadronteam/api", "./api_gateway")
+              ui = docker.build("squadronteam/ui", "./UI")
 
         }
       }
@@ -56,6 +57,7 @@ pipeline {
             post.push()
             user.push()
             api.push()
+            ui.push()
           }
         }
       }
