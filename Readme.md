@@ -4,10 +4,12 @@ Team members: Aarushi Bisht Shivam Rastogi Akhil Nagulavancha
 
 #### Assignment 2
 
-Our jenkins server is hosted here: http://149.165.171.122:32323/job/Squadron/job/develop/
-A commit on the develop branch will trigger the jenkins build which runs the test cases, pushes the latest image to docker hub and deploys the latest changes to kubernetes cluster.
+Our jenkins server is hosted here: http://149.165.171.122:32323/job/Squadron/job/develop/.
+A commit on the develop branch will trigger the jenkins build which runs the test cases, pushes the latest images to docker hub and deploys the latest changes to kubernetes cluster.
 
 Our service is hosted here. http://149.165.171.122:31001/login
+
+Please note that all our changes are in develop branch
 
 #### Assignment 1
 
