@@ -28,10 +28,14 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 
+user_service = os.environ.get('USER_PORT')
+session_management_servie = os.environ.get('SESSION_PORT')
+data_service = os.environ.get('DATA_PORT')
+
 # Application parameters
-USER_SERVICE_URL = "http://127.0.0.1:8000/"
-SESSION_MANAGEMENT_SERVICE_URL = "http://127.0.0.1:9096/"
-DATA_RETRIEVAL_SERVICE_URL = "http://127.0.0.1:9093/"
+USER_SERVICE_URL = "http://" + user_service + "/"
+SESSION_MANAGEMENT_SERVICE_URL = "http://" + session_management_servie + "/"
+DATA_RETRIEVAL_SERVICE_URL = "http://" + data_service + "/"
 
 # Application definition
 
