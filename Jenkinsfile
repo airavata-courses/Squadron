@@ -60,6 +60,39 @@ pipeline {
         }
       }
     }
+    stage('Deploy code') {
+        agent {
+            kubernetes {
+              label 'squadron-jenkins'
+              serviceAccount 'squadron-jenkins'
+              containerTemplate {
+                name 'helm'
+                image 'squadronteam/helm-jenkins'
+                ttyEnabled true
+                command 'cat'
+                }
+            }
+        }
+        
+      steps {
+        container('helm') {
+          git url: 'git://github.com/airavata-courses/Squadron.git', branch: 'develop'
+          sh '''
+            pwd
+            cd helm-chart
+            helm dependency update squadron/
+            helm list
+            DEPLOYED=$(helm list |grep -E "^squadron" |grep -i DEPLOYED |wc -l)
+            TIMESTAMP=$(date "+%H:%M:%S-%d/%m/%y")
+            if [ $DEPLOYED == 0 ] ; then
+              helm install squadron squadron/
+            else
+              helm upgrade squadron squadron/  --set-string timestamp=$TIMESTAMP
+            fi
+          echo "deployed!"
+          '''
+        }
+      }
+    }
   }
-
 }
