@@ -25,13 +25,13 @@ def register(username, password, first_name, last_name, email):
             'email': email
             }
 
-    r = requests.create(url,
+    r = requests.post(url,
                       json=params,
                       headers={'content-type': 'application/json'}
                       )
-
-    if r.status_code == 200:
-        return {'token': r.json().get('token'), 'register': 'success'}
+    print(r.status_code)
+    if r.status_code == 201:
+        return {'register': 'success'}
     else:
         return {'register': 'failed'}
 
