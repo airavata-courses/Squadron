@@ -2,16 +2,23 @@
 
 Team members: Aarushi Bisht Shivam Rastogi Akhil Nagulavancha
 
-#### Assignment 2
+### Assignment 2
 
+##### CI/CD
 Our jenkins server is hosted here: http://149.165.171.122:32323/job/Squadron/job/develop/. Username: admin, Password: admin
-A commit on the develop branch will trigger the jenkins build which runs the test cases, pushes the latest images to docker hub and deploys the latest changes to kubernetes cluster.
+
+A commit on the develop branch will automatically trigger the jenkins build which does the following steps:
+
+- Builds the docker images for all the services
+- Runs the test cases
+- Pushes the latest images to docker hub 
+- Deploys the latest changes to kubernetes cluster using helm charts
 
 Travis CI build result can accessed by clicking on the build badge. 
 
 Our service is hosted here. http://149.165.171.122:31001/login
 
-#### Assignment 1
+### Assignment 1
 
 Link to architectural diagram https://user-images.githubusercontent.com/5948157/74495966-45a09400-4eff-11ea-8556-52300ba422cb.png
 
