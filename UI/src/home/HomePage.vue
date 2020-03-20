@@ -10,29 +10,29 @@ Area:<br>
       <br></br>
       <p> <b> Please select the months</b> </p>
     <input type="checkbox" name="0" value="0" v-model="checkedNames">
-    <label for="0"> January</label><br>
+    <label for="1"> January</label><br>
     <input type="checkbox" name="1" value="1" v-model="checkedNames">
-    <label for="1"> February</label><br>
+    <label for="2"> February</label><br>
     <input type="checkbox" name="2" value="2" v-model="checkedNames">
-    <label for="2"> March</label><br>
+    <label for="3"> March</label><br>
     <input type="checkbox" name="3" value="3" v-model="checkedNames">
-    <label for="3">April</label><br>
+    <label for="4">April</label><br>
     <input type="checkbox" name="4" value="4" v-model="checkedNames">
-    <label for="4">May</label><br>
+    <label for="5">May</label><br>
     <input type="checkbox" name="5" value="5" v-model="checkedNames">
-    <label for="5">June</label><br>
+    <label for="6">June</label><br>
     <input type="checkbox" name="6" value="6" v-model="checkedNames">
-    <label for="6">July</label><br>
+    <label for="7">July</label><br>
     <input type="checkbox" name="7" value="7" v-model="checkedNames">
-    <label for="7">August</label><br>
+    <label for="8">August</label><br>
     <input type="checkbox" name="8" value="8" v-model="checkedNames">
-    <label for="8">September</label><br>
+    <label for="9">September</label><br>
     <input type="checkbox" name="9" value="9" v-model="checkedNames">
-    <label for="9">October</label><br>
+    <label for="10">October</label><br>
     <input type="checkbox" name="10" value="10" v-model="checkedNames">
-    <label for="10">November</label><br>
+    <label for="11">November</label><br>
     <input type="checkbox" name="11" value="11" v-model="checkedNames">
-    <label for="11">December</label><br>
+    <label for="12">December</label><br>
     <p><b> Enter valid Zipcode </b></p>
     <input v-model="zipcode" type="text" name="Area" placeholder="Zipcode">
     <br></br>
@@ -46,11 +46,13 @@ Area:<br>
 
 <script>
 import config from 'config';
+import { username } from '../_helpers';
 
 export default {
   name: 'app',
   data() {
     return {
+      username: username(),
       Area:'',
       checkedNames:[],
       zipcode:''
@@ -61,12 +63,11 @@ export default {
       console.log(this.Area)
       console.log(this.checkedNames)
       console.log(this.zipcode)
-      console.log(this.$store.state.authentication.user.username)
-
+      console.log(this.username)
       e.preventDefault();
                     let currentObj = this;
                     axios.post(`${config.apiUrl}experiments/`, {
-                        username:"admin",
+                        username: this.username,
                         house_area:this.Area,
                         pincode: this.zipcode,
                         months: this.checkedNames

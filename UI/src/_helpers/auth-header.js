@@ -8,3 +8,12 @@ export function authHeader() {
         return {};
     }
 }
+export function username() {
+	let username = JSON.parse(localStorage.getItem('username'));
+	if(username) {
+		console.log(username)
+		return username;
+	} else {
+		return 'temp_user';
+	}
+}

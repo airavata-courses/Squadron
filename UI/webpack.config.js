@@ -59,7 +59,7 @@ module.exports = {
     externals: {
         // global app config object
         config: JSON.stringify({
-            apiUrl: 'http://149.165.170.106:31002/api/'
+            apiUrl: 'http://' + process.env.FLOATING_IP + ':31002/api/' 
         })
     }
 }

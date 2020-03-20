@@ -7,9 +7,10 @@
 					<th> User Name </th>
 					<th> House Area </th>
 					<th> Months </th>
-					<th> Payment</th>
-					<th> houseArea</th>
-					<th> status</th>
+					<th> Status</th>
+					<th> Model execution </th>
+					<th> Post Processing </th>
+
 				</tr>
 			</thead>
 			<tr v-for="session in this.sessions">
@@ -17,8 +18,9 @@
 				<td> {{ session.username }} </td>
 				<td> {{ session.house_area }} </td>
 				<td> {{ session.months }} </td>
-				<td> {{ session.username }} </td>
-
+				<td> {{ session.status }} </td>
+				<td> {{ session.model_result }} </td>
+				<td> {{ session.post_processed_result }} </td>
 
 			</tr>
 		</table>
@@ -30,6 +32,7 @@
 </template>
 <script type="text/javascript">
 import config from 'config';
+import { username } from '../_helpers';
 
 	export default {
 		data () {
@@ -40,7 +43,7 @@ import config from 'config';
     created () {
 			axios.get(`${config.apiUrl}experiments`, {
 				params: {
-					username: "admin"
+					username: username()
 				}
 			})
 			.then(
