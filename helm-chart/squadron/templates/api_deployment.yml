@@ -4,8 +4,7 @@ metadata:
   name: api-deployment
   labels:
     app: api
-  annotations:
-      timestamp: {{ .Values.timestamp }}
+  
 spec:
   replicas: 1
   selector:
@@ -15,6 +14,8 @@ spec:
     metadata:
       labels:
         app: api
+      annotations:
+        timestamp: {{ .Values.timestamp }}
     spec:
       containers:
       - name: api

@@ -15,6 +15,8 @@ spec:
     metadata:
       labels:
         app: data
+      annotations:
+        timestamp: {{ .Values.timestamp }}
     spec:
       containers:
       - name: data

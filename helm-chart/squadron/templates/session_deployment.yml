@@ -4,8 +4,6 @@ metadata:
   name: session-deployment
   labels:
     app: session
-  annotations:
-      timestamp: {{ .Values.timestamp }}
 spec:
   replicas: 1
   selector:
@@ -15,6 +13,8 @@ spec:
     metadata:
       labels:
         app: session
+      annotations:
+        timestamp: {{ .Values.timestamp }}
     spec:
       containers:
       - name: session
