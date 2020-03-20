@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/Shopify/sarama"
 	"net/http"
+	"math/rand"
 )
 
 type rainFallRequest struct {
@@ -76,7 +77,8 @@ func PreparePacket(userRequest rainFallRequest) resultPacket{
 	return packet
 }
 func RetrieveAndSendData(kafkaAsyncProducer sarama.AsyncProducer, userRequest rainFallRequest) {
-
+	fmt.Println("Sending from data retrieval to kafka on topic rainResults")
+	fmt.Println(userRequest)
 	packet := PreparePacket(userRequest)
 	packetJson, _ := json.Marshal(packet)
 	kafkaAsyncProducer.Input() <- &sarama.ProducerMessage{
@@ -88,14 +90,31 @@ func RetrieveAndSendData(kafkaAsyncProducer sarama.AsyncProducer, userRequest ra
 
 func getRainData(pincode int) (resp [12]rainFallData, err error) {
 	// make request to https://www.melissa.com/v2/lookups/zipclimate/zipcode/?zipcode=47404&fmt=json
-	url := fmt.Sprintf("https://www.melissa.com/v2/lookups/zipclimate/zipcode/?zipcode=%d&fmt=json", pincode)
-	response, err := http.Get(url)
-	if err != nil {
-		return
+	//url := fmt.Sprintf("https://www.melissa.com/v2/lookups/zipclimate/zipcode/?zipcode=%d&fmt=json", pincode)
+	//response, err := http.Get(url)
+	//if err != nil {
+		//return
+	//}
+	//err = json.NewDecoder(response.Body).Decode(&resp)
+	//if err != nil {
+		//return
+	//}
+	resp = [12]rainFallData{}
+	monthNumber := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}
+	month := []string {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"}
+	for i:=0; i<12; i++ {
+		resp[i] = rainFallData{
+			MonthName:   month[i],
+			HighTemp:    (rand.Float32()*30) + 20,
+			AvgTemp:     (rand.Float32()*30) + 20,
+			LowTemp:     (rand.Float32()*30) + 20,
+			Cdd:         (rand.Float32()*30) + 20,
+			Hdd:         rand.Intn(30),
+			Rain:        (rand.Float32()*30) + 20,
+			Zip:         fmt.Sprint("%v", pincode),
+			MonthNumber: monthNumber[i],
+		}
 	}
-	err = json.NewDecoder(response.Body).Decode(&resp)
-	if err != nil {
-		return
-	}
+	err = nil
 	return
 }

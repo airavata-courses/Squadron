@@ -14,7 +14,6 @@ def process_data():
             d = bytes.decode(msg.value)
             d = json.loads(d)
             print("post processing got this", d)
-            print("Post processing service started producing!!")
             if d['Status'] == "fail":
                 print("Passing failed process")
                 print("Post processing sending this: ", d)
@@ -34,6 +33,7 @@ def compute(d):
     # Assuming 4 members per family consuming 50 gallons per month
 
     d["post_processed_result"] = total_cost(d["model_result"])
+    print("Post processing setting status as Completed for the request")
     d["status"] = "COMPLETED"
     sys.stdout.flush()
     sys.stderr.flush()
