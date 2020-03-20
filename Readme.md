@@ -1,4 +1,4 @@
-## Team Squadron
+## Team Squadron [![Build Status](https://travis-ci.org/airavata-courses/Squadron.svg?branch=develop)](https://travis-ci.org/airavata-courses/Squadron)
 
 Team members: Aarushi Bisht Shivam Rastogi Akhil Nagulavancha
 
