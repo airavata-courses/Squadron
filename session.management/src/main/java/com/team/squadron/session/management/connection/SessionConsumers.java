@@ -49,6 +49,8 @@ public class SessionConsumers{
                 try {
                     userlog = new ObjectMapper().readValue(record.value(), UserLog.class);
                     logger.info("Session got  a new msg");
+                    logger.info(userlog.toString());
+                    logger.info("Session updating the logs");
                     repository.save(userlog);
                     consumer.commitSync();
                 } catch (JsonProcessingException e) {

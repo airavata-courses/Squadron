@@ -11,7 +11,7 @@ import (
 type rainFallRequest struct {
 	HouseArea float64 `json:"house_area"`
 	PinCode   int `json:"pincode"`
-	Months    []int`json:"months"`
+	Months    []string`json:"months"`
 	RequestId string `json:"request_id"`
 	Username string `json:"username"`
 }
@@ -32,7 +32,7 @@ type rainFallData struct {
 	Hdd         int
 	Rain        float32
 	Zip         string
-	MonthNumber int
+	MonthNumber string
 }
 
 type DataRetrievalErrorResponse struct {
@@ -64,7 +64,9 @@ func PreparePacket(userRequest rainFallRequest) resultPacket{
 		var data []rainFallData
 		for _, i := range response {
 			for _, m := range userRequest.Months {
+				fmt.Println("These are the months user requested", userRequest.Months)
 				if i.MonthNumber == m {
+					fmt.Println("Appending for month", i)
 					data = append(data, i)
 					break
 				}
@@ -100,7 +102,7 @@ func getRainData(pincode int) (resp [12]rainFallData, err error) {
 		//return
 	//}
 	resp = [12]rainFallData{}
-	monthNumber := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}
+	monthNumber := []string{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}
 	month := []string {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"}
 	for i:=0; i<12; i++ {
 		resp[i] = rainFallData{
@@ -111,7 +113,7 @@ func getRainData(pincode int) (resp [12]rainFallData, err error) {
 			Cdd:         (rand.Float32()*30) + 20,
 			Hdd:         rand.Intn(30),
 			Rain:        (rand.Float32()*30) + 20,
-			Zip:         fmt.Sprint("%v", pincode),
+			Zip:         fmt.Sprintf("%d", pincode),
 			MonthNumber: monthNumber[i],
 		}
 	}
