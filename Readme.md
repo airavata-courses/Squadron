@@ -7,6 +7,8 @@ Team members: Aarushi Bisht Shivam Rastogi Akhil Nagulavancha
 Our jenkins server is hosted here: http://149.165.171.122:32323/job/Squadron/job/develop/. Username: admin, Password: admin
 A commit on the develop branch will trigger the jenkins build which runs the test cases, pushes the latest images to docker hub and deploys the latest changes to kubernetes cluster.
 
+Travis CI build result can accessed by clicking on the build badge. 
+
 Our service is hosted here. http://149.165.171.122:31001/login
 
 #### Assignment 1
