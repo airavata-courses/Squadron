@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
+timestamp: 20:21:45-19/03/20
 
 mongodb:
   usePassword: false

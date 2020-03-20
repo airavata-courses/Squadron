@@ -4,6 +4,8 @@ metadata:
   name: data-deployment
   labels:
     app: data
+  annotations:
+      timestamp: {{ .Values.timestamp }}
 spec:
   replicas: 1
   selector:
