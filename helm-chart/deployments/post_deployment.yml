@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-deployment
+  labels:
+    app: post
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: post
+  template:
+    metadata:
+      labels:
+        app: post
+    spec:
+      containers:
+      - name: post
+        image: squadronteam/post
+        imagePullPolicy: Always
+        ports:
+            - containerPort: 9095
+        env:
+        - name: KAFKA
+          value: kafka1:9092

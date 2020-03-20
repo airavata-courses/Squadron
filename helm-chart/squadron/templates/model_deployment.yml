@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: model-deployment
+  labels:
+    app: model
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: model
+  template:
+    metadata:
+      labels:
+        app: model
+      annotations:
+        timestamp: {{ .Values.timestamp }}
+    spec:
+      containers:
+      - name: model
+        image: squadronteam/model
+        imagePullPolicy: Always
+        ports:
+            - containerPort: 9094
+        env:
+        - name: KAFKA
+          value: kafka1:9092
