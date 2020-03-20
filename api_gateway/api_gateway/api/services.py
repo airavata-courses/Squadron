@@ -29,7 +29,6 @@ def register(username, password, first_name, last_name, email):
                       json=params,
                       headers={'content-type': 'application/json'}
                       )
-    print(r.status_code)
     if r.status_code == 201:
         return {'register': 'success'}
     else:
