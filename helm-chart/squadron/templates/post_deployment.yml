@@ -6,7 +6,11 @@ metadata:
     app: post
 spec:
   replicas: {{ .Values.replicaCount}}
-  maxUnavailable: 1
+  strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 3
+    maxUnavailable: 1
   selector:
     matchLabels:
       app: post
