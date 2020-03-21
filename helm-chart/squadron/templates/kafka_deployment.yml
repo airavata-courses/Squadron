@@ -32,3 +32,12 @@ spec:
             value: "rainResults:0:1,modelExecutionResult:0:1,postProcessingResult:0:1"
           - name: KAFKA_ADVERTISED_LISTENERS
             value: "PLAINTEXT://$(MY_POD_IP):9092"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - squadron-3

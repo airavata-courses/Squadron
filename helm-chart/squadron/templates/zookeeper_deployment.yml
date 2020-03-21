@@ -30,3 +30,12 @@ spec:
             value: "5"
           - name: ZOOKEEPER_SYNC_LIMIT
             value: "2"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - squadron-3          
