@@ -67,9 +67,15 @@ Our service is hosted here. http://149.165.171.122:31001/login
 
 ### Load balance Testing using Jmeter 
 
+Tested the load on the application using 1000 users in 300 seconds for three loops 
+
+Application is giving a current average error rate of 0.02 for the above configuration
+
 <img width="1440" alt="1000 users - 300 ramp up time " src="https://user-images.githubusercontent.com/16973298/77219438-2a333500-6b0c-11ea-93b7-43f2a51178eb.png">
 
 <img width="1164" alt="doc 1000 300 " src="https://user-images.githubusercontent.com/16973298/77219447-3cad6e80-6b0c-11ea-8525-35b24e3b561c.png">
+
+
 
 
 ### Assignment 1
