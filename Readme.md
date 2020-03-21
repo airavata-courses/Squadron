@@ -75,6 +75,10 @@ Application is giving a current average error rate of 0.02 for the above configu
 
 <img width="1164" alt="doc 1000 300 " src="https://user-images.githubusercontent.com/16973298/77219447-3cad6e80-6b0c-11ea-8525-35b24e3b561c.png">
 
+<img width="1440" alt="3 PODS 2000 users 1 loop" src="https://user-images.githubusercontent.com/16973298/77220544-abdc9000-6b17-11ea-8ec1-c885ab3831ad.png">
+
+<img width="1439" alt="2000 , 3 Pod ,  graph" src="https://user-images.githubusercontent.com/16973298/77220557-cadb2200-6b17-11ea-8315-05b1fdd0a47c.png">
+
 
 
 
