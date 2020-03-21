@@ -2,6 +2,54 @@
 
 Team members: Aarushi Bisht Shivam Rastogi Akhil Nagulavancha
 
+
+### Building new infrastructure
+
+Pre-requisites
+
+- Install Terraform
+- Install ansible-playbooks
+- ssh key pair
+- jetstream openrc,sh file from your jetstream account
+
+
+Steps-1 < Provision Infrastructure >
+
+1. Clone the repo
+2. Checkout develop branch
+3. Go to 'infrastructure/terraform-jetstream' folder 
+4. Source the jetsream openrc file, so that terraform can use your credentials from environment
+5. Execute the following commands to see the plan of the infrastructure that will be provisioned
+	`terraform apply -var 'keypair-path=<your-ssh-key-path>' -var-file=example.tfvars`
+6. Create Infrastructure
+	`terraform apply -var 'keypair-path=../tg865717-api-key.pub' -var-file=example.tfvars`
+7. Note down the IP address of the servers that are created and you can login into them using your private ssh key.
+
+Note: if you want you can change the vm-name in example.tvfars file, by modifying variable 'vm-name = "Squadron"'
+
+
+Step-2 < Deploy a kubernetes cluster > 
+1. Open folder 'infrastructure/ansible-cluster' folder and edit the hosts file
+2. In the hosts file update the IP addresses of the master server and 3 slave servers that were created earlier.
+3. Execute the ansible scripts in this order: 
+  ```
+  ansible-playbook -i hosts kube-dependencies.yml 
+  ansible-playbook -i hosts master.yml 
+  ansible-playbook -i hosts worker.yml 
+  ansible-playbook -i hosts create-storage.yml 
+  ```
+
+4. For any issues/doubts you can refer digital-ocean website
+
+Step-3 < Set up master Node >
+1. Install helm
+2. clone the repo in the master node. 
+3. Go to folder helm-chart and execute
+	`helm install squadron squadron/`
+4. Verify the application by executing command `kubectl get pods` and all the pods of our application will be created. You can refer the application from <floating_ip_server>:31001.
+
+
+
 ### Assignment 2
 
 Our jenkins server is hosted here: http://149.165.171.122:32323/job/Squadron/job/develop/. Username: admin, Password: admin
