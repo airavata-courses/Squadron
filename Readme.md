@@ -65,6 +65,13 @@ Travis CI build result can accessed by clicking on the build badge.
 
 Our service is hosted here. http://149.165.171.122:31001/login
 
+### Load balance Testing using Jmeter 
+
+<img width="1440" alt="1000 users - 300 ramp up time " src="https://user-images.githubusercontent.com/16973298/77219438-2a333500-6b0c-11ea-93b7-43f2a51178eb.png">
+
+<img width="1164" alt="doc 1000 300 " src="https://user-images.githubusercontent.com/16973298/77219447-3cad6e80-6b0c-11ea-8525-35b24e3b561c.png">
+
+
 ### Assignment 1
 
 Link to architectural diagram https://user-images.githubusercontent.com/5948157/74495966-45a09400-4eff-11ea-8556-52300ba422cb.png
