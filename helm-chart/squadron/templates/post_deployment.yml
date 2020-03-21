@@ -5,7 +5,8 @@ metadata:
   labels:
     app: post
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount}}
+  maxUnavailable: 1
   selector:
     matchLabels:
       app: post

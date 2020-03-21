@@ -7,7 +7,8 @@ metadata:
   annotations:
       timestamp: {{ .Values.timestamp }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount}}
+  maxUnavailable: 1
   selector:
     matchLabels:
       app: data
