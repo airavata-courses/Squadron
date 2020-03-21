@@ -93,11 +93,17 @@ WSGI_APPLICATION = 'user_management.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+DATABASE_PATH = os.environ.get('DATABASE_PATH')
 
+if DATABASE_PATH is not None:
+    DATABASE_PATH = os.path.join('/mnt/django', 'db.sqlite3')
+else:
+    DATABASE_PATH = os.path.join(BASE_DIR, 'db.sqlite3')
+print("Using database path: ", DATABASE_PATH)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': DATABASE_PATH,
     }
 }
 
