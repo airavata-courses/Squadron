@@ -77,7 +77,7 @@ Application is giving a current average error rate of 0.02 for the above configu
 
 Tested the load on the application using 2000 users in 300 seconds for three loops 
 
-Application is giving a current average error rate of 0.02 for the above configuration
+Application is giving a current average error rate of 0.16 for the above configuration
 
 <img width="1440" alt="3 PODS 2000 users 1 loop" src="https://user-images.githubusercontent.com/16973298/77220544-abdc9000-6b17-11ea-8ec1-c885ab3831ad.png">
 
