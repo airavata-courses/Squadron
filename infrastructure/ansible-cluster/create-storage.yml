@@ -1,0 +1,23 @@
+- hosts: all
+  become: yes
+  become_method: sudo
+  become_user: root
+
+  gather_facts: false
+  tasks:
+    - name: create storage
+      shell: |
+        chmod 666 /var/run/docker.sock
+      
+
+- hosts: custos-kube-worker3
+  become: yes
+  become_method: sudo
+  become_user: root
+
+  tasks:
+    - name: create directories
+      shell: |
+        mkdir /storage/mongodb
+        mkdir /storage/user_management
+        chmod -R 777 /storage
