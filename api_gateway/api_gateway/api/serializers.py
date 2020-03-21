@@ -4,13 +4,15 @@ from rest_framework.utils import json
 
 
 class Experiment(object):
-    def __init__(self, username, house_area, pincode, months, request_id=None, status=None):
+    def __init__(self, username, house_area, pincode, months, request_id=None, status=None, model_result=-1, post_processed_result=-1):
         self.username = username
         self.house_area = house_area
         self.pincode = pincode
         self.months = months
         self.request_id = request_id
         self.status = status
+        self.model_result = model_result
+        self.post_processed_result = post_processed_result
 
 
 class ExperimentSerializer(serializers.Serializer):
@@ -20,6 +22,8 @@ class ExperimentSerializer(serializers.Serializer):
     pincode = serializers.IntegerField(required=True)
     months = serializers.ListField(required=True)
     status = serializers.CharField(required=False, allow_blank=True)
+    model_result = serializers.CharField(required=False, allow_blank=True)
+    post_processed_result = serializers.CharField(required=False, allow_blank=True)
 
     def create(self, validated_data):
         return Experiment(**validated_data)

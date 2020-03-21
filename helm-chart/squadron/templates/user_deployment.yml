@@ -22,3 +22,13 @@ spec:
         imagePullPolicy: Always
         ports:
             - containerPort: 8000
+        volumeMounts:
+        - name: django-database
+          mountPath: /mnt/django
+        env:
+        - name: DATABASE_PATH
+          value: /mnt/django
+      volumes:
+      - name: django-database
+        persistentVolumeClaim:
+          claimName: django-local-pv-claim

@@ -4,7 +4,6 @@ Team members: Aarushi Bisht Shivam Rastogi Akhil Nagulavancha
 
 ### Assignment 2
 
-##### CI/CD
 Our jenkins server is hosted here: http://149.165.171.122:32323/job/Squadron/job/develop/. Username: admin, Password: admin
 
 A commit on the develop branch will automatically trigger the jenkins build which does the following steps:
@@ -138,9 +137,6 @@ Due to the current bug in the user registration please use the following credent
 
 username : admin
 ,password : Password@1
-
-
-
 
 
 
