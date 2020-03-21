@@ -75,7 +75,7 @@ Application is giving a current average error rate of 0.02 for the above configu
 
 <img width="1164" alt="doc 1000 300 " src="https://user-images.githubusercontent.com/16973298/77219447-3cad6e80-6b0c-11ea-8525-35b24e3b561c.png">
 
-Tested the load on the application using 2000 users in 300 seconds for three loops and 3 replicas of the services
+Tested the load on the application using 2000 users in 300 seconds in one loops and 3 replicas of the services
 
 Application is giving a current average error rate of 0.16 for the above configuration
 
@@ -83,8 +83,13 @@ Application is giving a current average error rate of 0.16 for the above configu
 
 <img width="1439" alt="2000 , 3 Pod ,  graph" src="https://user-images.githubusercontent.com/16973298/77220557-cadb2200-6b17-11ea-8315-05b1fdd0a47c.png">
 
+Tested the load on the application using 5000 users with 300 seconds ramp up time for once  and 3 replicas of the services
 
+Application is breaking down after 1500 to 2000 threads and giving an average error rate of 50%
 
+<img width="1424" alt="Graph 5000 , 3 " src="https://user-images.githubusercontent.com/16973298/77238305-58b11e80-6ba5-11ea-8795-11638cd594f4.png">
+
+<img width="1433" alt="5000 , 3 " src="https://user-images.githubusercontent.com/16973298/77238306-5bac0f00-6ba5-11ea-9225-e7e908b9cbaa.png">
 
 ### Assignment 1
 
