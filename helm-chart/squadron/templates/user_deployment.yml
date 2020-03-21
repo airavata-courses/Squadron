@@ -25,6 +25,9 @@ spec:
         volumeMounts:
         - name: django-database
           mountPath: /mnt/django
+        env:
+        - name: DATABASE_PATH
+          value: /mnt/django
       volumes:
       - name: django-database
         persistentVolumeClaim:
