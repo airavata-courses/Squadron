@@ -75,7 +75,7 @@ Application is giving a current average error rate of 0.02 for the above configu
 
 <img width="1164" alt="doc 1000 300 " src="https://user-images.githubusercontent.com/16973298/77219447-3cad6e80-6b0c-11ea-8525-35b24e3b561c.png">
 
-Tested the load on the application using 2000 users in 300 seconds for three loops 
+Tested the load on the application using 2000 users in 300 seconds for three loops and 3 replicas of the services
 
 Application is giving a current average error rate of 0.16 for the above configuration
 
