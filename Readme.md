@@ -91,6 +91,14 @@ Application is breaking down after 1500 to 2000 threads and giving an average er
 
 <img width="1433" alt="5000 , 3 " src="https://user-images.githubusercontent.com/16973298/77238306-5bac0f00-6ba5-11ea-9225-e7e908b9cbaa.png">
 
+Tested the application using 5000 users with 3000 seconds ramp up time for one and 5 replicas of the services 
+
+Application is breaking down after around 2000 threads and a average error rate of  20 % at that point 
+
+<img width="1440" alt="doc 5" src="https://user-images.githubusercontent.com/16973298/77239880-e72d9c00-6bb5-11ea-8bd4-356210da9c8c.png">
+
+<img width="1436" alt="G" src="https://user-images.githubusercontent.com/16973298/77239882-e85ec900-6bb5-11ea-8c66-78c8f7a563b4.png">
+
 ### Assignment 1
 
 Link to architectural diagram https://user-images.githubusercontent.com/5948157/74495966-45a09400-4eff-11ea-8556-52300ba422cb.png
