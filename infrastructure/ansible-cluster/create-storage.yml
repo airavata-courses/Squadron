@@ -8,6 +8,9 @@
     - name: create storage
       shell: |
         chmod 666 /var/run/docker.sock
+        mkfs.ext4 /dev/sdb
+        mkdir /storage
+        mount /dev/sdb /testmount
       
 
 - hosts: custos-kube-worker3
