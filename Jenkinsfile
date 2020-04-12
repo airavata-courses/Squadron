@@ -86,7 +86,7 @@ pipeline {
             helm list
             DEPLOYED=$(helm list |grep -E "^squadron" |grep -i DEPLOYED |wc -l)
             TIMESTAMP=$(date "+%H:%M:%S-%d/%m/%y")
-            if [ $DEPLOYED == 0 ] ; then
+            if [ $DEPLOYED == 1 ] ; then
               helm install squadron squadron/
             else
               helm upgrade squadron squadron/  --set-string timestamp=$TIMESTAMP
